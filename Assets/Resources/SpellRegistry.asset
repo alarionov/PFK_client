@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42629bce20aa44db2b5b7d4b6d3b559d, type: 3}
+  m_Name: SpellRegistry
+  m_EditorClassIdentifier: 
+  _spells:
+  - Index: 0
+    Name: Enchant
+    WordCount: 1
+    Icon: {fileID: 21300000, guid: 2b4e3532ce9124b47936d2349b3c11e1, type: 3}
+  - Index: 1
+    Name: Flase Life
+    WordCount: 1
+    Icon: {fileID: 21300000, guid: 6f0a9f82aeb4e471faed6f2fe17687f6, type: 3}
+  - Index: 2
+    Name: Shield
+    WordCount: 1
+    Icon: {fileID: 21300000, guid: 1e15f2e4ae5484dc78395e22ab22fd83, type: 3}
+  - Index: 3
+    Name: Critical Strike
+    WordCount: 3
+    Icon: {fileID: 21300000, guid: 7e13c968b560a4d299fc2f11fb2dcd07, type: 3}
+  - Index: 4
+    Name: Bless
+    WordCount: 3
+    Icon: {fileID: 21300000, guid: 2e304d3f095d7490b8e876850e99e32b, type: 3}
+  - Index: 5
+    Name: Reflect
+    WordCount: 4
+    Icon: {fileID: 21300000, guid: 78b49da23437348f19b56b9511cb1e5b, type: 3}
+  - Index: 6
+    Name: Vampirism
+    WordCount: 4
+    Icon: {fileID: 21300000, guid: 1405ac6299cfe4205ab8fcbc975748bd, type: 3}
+  - Index: 7
+    Name: Salvation
+    WordCount: 5
+    Icon: {fileID: 21300000, guid: 5f8eed8909077459ba206f15411f5a7d, type: 3}
