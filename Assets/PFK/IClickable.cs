@@ -1,9 +1,9 @@
-namespace WordBearers
+namespace PFK
 {
     public enum CursorType
     {
         Default,
-        Hovering,
+        Hand,
         Magnifier
     }
     
