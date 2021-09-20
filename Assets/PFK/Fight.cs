@@ -1,11 +1,9 @@
 using UnityEngine;
 
-namespace WordBearers
+namespace PFK
 {
     public class Fight
     {
-        public event System.Action<Fight> OnChange;
-
         public static Fight Instance { get; private set; }
         
         public FightParams FightParams { get; private set; }

@@ -1,10 +1,13 @@
-using UnityEngine;
+using System.Collections;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using PFK.Acts.SceneRegistry;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using WordBearers;
 using WordBearers.Leaderboard;
 
-namespace WordBearers
+namespace PFK
 {
     public class WalletManager : MonoBehaviour
     {
@@ -24,8 +27,9 @@ namespace WordBearers
 
         [SerializeField] private string _profileScene;
         [SerializeField] private string _registerScene;
-        [SerializeField] private string _fightScene;
-
+        
+        [SerializeField] private SceneRegistry _fightScenes;
+        
         private PlayerState _state;
 
         private void Awake()
@@ -40,11 +44,9 @@ namespace WordBearers
             DontDestroyOnLoad(this);
         }
 
-        private void Start()
+        public static WalletManager GetInstance()
         {
-            HideNoWalletError();
-            HideLoadingScreen();
-            _state = PlayerState.GetInstance();
+            return _instance;
         }
 
         public void ConnectWallet() => jsConnectWallet();
@@ -106,13 +108,6 @@ namespace WordBearers
             _state.LoadBuffs(encodedBuffs);
         }
 
-        public void FightLoaded(string encodedFight)
-        {
-            Fight.LoadParams(encodedFight);
-            jsPrintString("Loading Fight!");
-            SceneManager.LoadScene(_fightScene, LoadSceneMode.Single);
-        }
-        
         public void CharacterLoaded(string encoded)
         {
             _state.LoadCharacter(encoded);
@@ -126,6 +121,21 @@ namespace WordBearers
         public void LeaderboardLoaded(string encoded)
         {
             Stats.LoadStats(encoded);
+        }
+
+        public void FightScene(FightWrapper fight)
+        {
+            StartCoroutine(LoadAndFight(fight));
+        }
+
+        private IEnumerator LoadAndFight(FightWrapper fight)
+        {
+            ShowLoadingScreen();
+            yield return new WaitForSeconds(1);
+            HideLoadingScreen();
+            SceneManager.LoadScene(
+                _fightScenes.GetScene(fight.ContractAddress, fight.SceneIndex), 
+                LoadSceneMode.Single);
         }
     }
 }

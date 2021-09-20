@@ -1,4 +1,4 @@
-namespace WordBearers
+namespace PFK
 {
     public enum SpellType
     {

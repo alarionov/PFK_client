@@ -6,29 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/_GameMenu.unity
-    guid: e060379e4bb384e4581d12042b46b91d
-  - enabled: 1
-    path: Assets/Scenes/_Profile.unity
-    guid: 53e9aff21ffbc49c78970b85ba99264f
-  - enabled: 1
-    path: Assets/Scenes/_Register.unity
-    guid: 5ac1819f5af7846f2ae7269f0843ba24
-  - enabled: 1
-    path: Assets/Scenes/_Leaderboard.unity
-    guid: 33064e3f285fe412aa33a3510875f835
-  - enabled: 1
-    path: Assets/Scenes/_Fight.unity
-    guid: 333ee8647a38e4c94ac2ebd114902915
-  - enabled: 1
-    path: Assets/Scenes/FightResults/Died.unity
-    guid: eaeecd3f5f5e24f91a0549200533fd86
-  - enabled: 1
-    path: Assets/Scenes/FightResults/Draw.unity
-    guid: 3326c6637ba144a0881b0c8e6eddfc7b
-  - enabled: 1
-    path: Assets/Scenes/FightResults/Victory.unity
-    guid: c23385c353219436bbdcf43f78291036
+    path: Assets/PFK/Acts/Act001/Fights/001_Milestone_1/Scene.unity
+    guid: d7df279e3394c4023abb438e35d2bcf5
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 6c6699c598eab41c99a70013eb08c351,
       type: 2}
