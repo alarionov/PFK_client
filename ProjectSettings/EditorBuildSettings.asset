@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/PFK/Acts/Act001/Fights/001_Milestone_1/Scene.unity
+    path: Assets/PFK/Acts/Act001/007_Fights/001_Milestone_1/Scene.unity
     guid: d7df279e3394c4023abb438e35d2bcf5
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 6c6699c598eab41c99a70013eb08c351,

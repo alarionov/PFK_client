@@ -1,13 +1,16 @@
 using Characters.Controllers;
-using PFK;
 using TMPro;
 using UnityEngine;
 
-namespace WordBearers.FightScene
+namespace PFK
 {
-    public class Character : MonoBehaviour
+    public class CharacterView : MonoBehaviour
     {
-        protected CharacterAnimationController _animationController; 
+        [SerializeField] private BaseStats _stats;
+
+        public BaseStats BaseStats => _stats;
+        
+        private CharacterAnimationController _animationController; 
         
         public enum UpdateMode
         {
@@ -32,12 +35,10 @@ namespace WordBearers.FightScene
         [SerializeField] private TMP_Text _attack;
         [SerializeField] private TMP_Text _health;
         [SerializeField] private TMP_Text _armour;
-
-        private BaseStats _stats;
-
+        
         private void Start()
         {
-            _animationController = GetComponentInChildren<CharacterAnimationController>();
+            _animationController = GetComponent<CharacterAnimationController>();
             
             HideAttackInfo();
         }

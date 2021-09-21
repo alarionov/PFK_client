@@ -1,6 +1,4 @@
-using PFK;
-
-namespace WordBearers
+namespace PFK
 {
     [System.Serializable]
     public class Character

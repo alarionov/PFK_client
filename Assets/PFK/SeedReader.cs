@@ -1,11 +1,9 @@
-using System.Linq;
-
-namespace WordBearers
+namespace PFK
 {
     public class SeedReader
     {
-        private byte[] _rolls;
-        private int index;
+        private readonly byte[] _rolls;
+        private int _index;
         
         public SeedReader(string hexString)
         {
@@ -14,7 +12,7 @@ namespace WordBearers
                 throw new System.Exception("Odd length of the seed hex string");
             }
             
-            index = 0;
+            _index = 0;
             _rolls = new byte[hexString.Length / 2];
             
             for (int i = 0; i < hexString.Length/2; ++i)
@@ -27,7 +25,7 @@ namespace WordBearers
 
         public int Roll(byte d)
         {
-            return _rolls[index++] % d;
+            return _rolls[_index++] % d;
         }
     }
 }

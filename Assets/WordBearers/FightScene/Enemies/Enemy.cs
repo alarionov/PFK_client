@@ -1,6 +1,8 @@
+using PFK;
+
 namespace WordBearers.FightScene.Enemies
 {
-    public class Enemy : Character
+    public class Enemy : CharacterView
     {
     }
 }

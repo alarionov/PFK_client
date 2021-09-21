@@ -36,7 +36,7 @@ namespace WordBearers.ProfileScene
 
         private void Render(PlayerState state)
         {
-            WordBearers.Character character = state.Character;
+            PFK.Character character = state.Character;
 
             _exp?.SetText(character.Exp.ToString());
             _level?.SetText(character.Level.ToString());

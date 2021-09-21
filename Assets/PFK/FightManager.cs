@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using PFK;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-namespace WordBearers
+namespace PFK
 {
-    public class EnemySkeleton
+    public class EnemyUnit
     {
-        public UnitIDEnum ID;
+        public int Index;
         public BaseStats Stats;
     }
 
@@ -24,8 +22,8 @@ namespace WordBearers
     public class FightAction
     {
         public AttackType Type;
-        public UnitIDEnum AttackerID;
-        public UnitIDEnum VictimID;
+        public int AttackerID;
+        public int VictimID;
         public int Damage;
         public bool Vampirism;
         public bool Reflect;
@@ -33,12 +31,8 @@ namespace WordBearers
 
     public class FightManager : MonoBehaviour
     {
-        [Header("Scenes")] 
-        [SerializeField] private string _victoryScene;
-        [SerializeField] private string _drawScene;
-        [SerializeField] private string _diedScene;
-        
-        [SerializeField] private FightScene.Character[] _characters;
+        [SerializeField] private CharacterView _player;
+        [SerializeField] private CharacterView[] _enemyUnits;
         
         [DllImport("__Internal")]
         private static extern void jsPrintString(string str);
@@ -49,34 +43,33 @@ namespace WordBearers
 
         private void Start()
         {
-            foreach (var character in _characters)
-            {
-                character.gameObject.SetActive(false);
-            }
-
             Fight fight = Fight.Instance;
             _seedReader = new SeedReader(fight.FightParams.Seed);
 
             BaseStats baseStats = fight.FightParams.Stats;
             bool[] playerBuffs = fight.FightParams.Buffs;
-            
-            EnemySkeleton[] skeletons = GetSkeletonsByLevel(fight.FightParams.OldState.level);
 
-            foreach (var skeleton in skeletons)
+            EnemyUnit[] skeletons = new EnemyUnit[_enemyUnits.Length];
+
+            for (int i = 0; i < _enemyUnits.Length; ++i)
             {
-                _characters[(int)skeleton.ID].UpdateStats(skeleton.Stats);
+                skeletons[i] = new EnemyUnit()
+                {
+                    Index = i, 
+                    Stats = _enemyUnits[i].BaseStats
+                };
             }
 
             BaseStats.ApplyBuffs(baseStats, playerBuffs);
             
-            _characters[(int)UnitIDEnum.Player].UpdateStats(baseStats);
+            _player.UpdateStats(baseStats);
 
             QueueAllAttacks(baseStats, skeletons, playerBuffs);
             
             StartCoroutine(FightCoroutine());
         }
 
-        private void QueueAllAttacks(BaseStats baseStats, EnemySkeleton[] skeletons, bool[] playerBuffs)
+        private void QueueAllAttacks(BaseStats baseStats, EnemyUnit[] skeletons, bool[] playerBuffs)
         {
             bool[] skeletonBuffs = new bool[playerBuffs.Length];
             
@@ -86,18 +79,18 @@ namespace WordBearers
             for (int i = 0; i < 10; ++i)
             {
                 int index = _seedReader.Roll((byte)skeletons.Length);
-                EnemySkeleton target = skeletons[index];
+                EnemyUnit target = skeletons[index];
                 
-                EnqueueAttack(UnitIDEnum.Player, baseStats, playerBuffs,
-                    target.ID, target.Stats, skeletonBuffs);
+                EnqueueAttack(-1, baseStats, playerBuffs,
+                    target.Index, target.Stats, skeletonBuffs);
                 
                 skeletons = RecountSkeletons(skeletons);
                 jsPrintString($"Number of skeletons: { skeletons.Length }");
 
-                foreach (EnemySkeleton attacker in skeletons)
+                foreach (EnemyUnit attacker in skeletons)
                 {
-                    EnqueueAttack(attacker.ID, attacker.Stats, skeletonBuffs,
-                        UnitIDEnum.Player, baseStats, playerBuffs);
+                    EnqueueAttack(attacker.Index, attacker.Stats, skeletonBuffs,
+                        -1, baseStats, playerBuffs);
 
                     if (baseStats.Health <= 0) return;
                 }
@@ -108,81 +101,18 @@ namespace WordBearers
             }
         }
 
-        private EnemySkeleton[] RecountSkeletons(EnemySkeleton[] skeletons)
+        private EnemyUnit[] RecountSkeletons(EnemyUnit[] skeletons)
         {
             return skeletons.Where(_ => _.Stats.Health > 0).ToArray();
         }
 
-        private EnemySkeleton[] GetSkeletonsByLevel(int level)
+        private EnemyUnit[] GetSkeletonsByLevel(int level)
         {
-            switch (level)
-            {
-                case 0:
-                    return new[] { GetWeak() };
-                case 1:
-                    return new[] { GetQuick() };
-                case 2:
-                    return new[] { GetThick() };
-                case 3:
-                    return new[] { GetWeak(), GetQuick() };
-                case 4:
-                    return new[] { GetWeak(), GetThick() };
-                case 5:
-                    return new[] { GetQuick(), GetThick() };
-                case 6:
-                    return new[] { GetWeak(), GetQuick(), GetThick() };
-                default:
-                    throw new System.Exception("Wrong level");
-            }
+            return new EnemyUnit[0];
         }
 
-        private EnemySkeleton GetWeak()
-        {
-            int difficulty = Fight.Instance.FightParams.OldState.difficulty;
-            return new EnemySkeleton()
-            {
-                ID = UnitIDEnum.Weak, 
-                Stats = new BaseStats()
-                {
-                    Attack = 1 + difficulty, 
-                    Health = 1 + difficulty, 
-                    Armour = 0 + difficulty
-                }
-            };
-        }
-        
-        private EnemySkeleton GetThick()
-        {
-            int difficulty = Fight.Instance.FightParams.OldState.difficulty;
-            return new EnemySkeleton()
-            {
-                ID = UnitIDEnum.Thick, 
-                Stats = new BaseStats()
-                {
-                    Attack = 2 + difficulty, 
-                    Health = 3 + difficulty, 
-                    Armour = 1 + difficulty
-                }
-            };
-        }
-        
-        private EnemySkeleton GetQuick()
-        {
-            int difficulty = Fight.Instance.FightParams.OldState.difficulty;
-            return new EnemySkeleton()
-            {
-                ID = UnitIDEnum.Quick, 
-                Stats = new BaseStats()
-                {
-                    Attack = 2 + difficulty, 
-                    Health = 1 + difficulty, 
-                    Armour = 0 + difficulty
-                }
-            };
-        }
-
-        private void EnqueueAttack(UnitIDEnum attackerID, BaseStats attacker, bool[] buffsAttacker,
-            UnitIDEnum victimID, BaseStats victim, bool[] buffsVictim)
+        private void EnqueueAttack(int attackerID, BaseStats attacker, bool[] buffsAttacker,
+            int victimID, BaseStats victim, bool[] buffsVictim)
         {
             FightAction action = new FightAction()
             {
@@ -253,21 +183,23 @@ namespace WordBearers
             {
                 FightAction action = _fightQueue.Dequeue();
 
-                for (int i = 0; i < _characters.Length; ++i)
+                for (int i = 0; i < _enemyUnits.Length; ++i)
                 {
-                    FightScene.Character charComponent = 
-                        _characters[i].GetComponent<FightScene.Character>();
+                    CharacterView charComponent = 
+                        _enemyUnits[i].GetComponent<CharacterView>();
 
                     charComponent.HideAttackInfo();
                 }
 
                 jsPrintString($"A: {action.AttackerID} V: {action.VictimID}  Type: {action.Type} D: {action.Damage} V: {action.Vampirism} R: {action.Reflect}");
                 
-                FightScene.Character attackerComponent = 
-                    _characters[(int) action.AttackerID].GetComponent<FightScene.Character>();
+                CharacterView attackerComponent = 
+                    action.AttackerID == -1 ? 
+                        _player : _enemyUnits[(int) action.AttackerID];
                 
-                FightScene.Character victimComponent = 
-                    _characters[(int) action.VictimID].GetComponent<FightScene.Character>();
+                CharacterView victimComponent =
+                    action.VictimID == -1 ?
+                        _player : _enemyUnits[(int) action.VictimID];
                 
                 attackerComponent.ShowAttack();
                 victimComponent.ShowDamage(action);
@@ -301,6 +233,7 @@ namespace WordBearers
                 PlayerState.GetInstance().Character.Exp += fightParams.Score;
             }
 
+            /*
             if (fightParams.Victory)
             {
                 jsPrintString("Load Victory");
@@ -316,6 +249,7 @@ namespace WordBearers
                 jsPrintString("Load Draw");
                 SceneManager.LoadScene(_drawScene, LoadSceneMode.Single);
             }
+            */
             jsPrintString("Scene should be loaded");
         }
     }

@@ -1,7 +1,7 @@
-using PFK;
 using UnityEngine;
+using WordBearers;
 
-namespace WordBearers
+namespace PFK
 {
     public class PlayerState
     {
