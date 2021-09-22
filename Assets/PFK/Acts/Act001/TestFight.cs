@@ -4,12 +4,14 @@ namespace PFK.Acts.Act001
 {
     public class TestFight : MonoBehaviour
     {
-        public void LoadFight(int index)
+        [SerializeField] private string _contractAddress;
+        [SerializeField] private int _index;
+        public void LoadFight()
         {
             FightWrapper wrapper = new FightWrapper()
             {
-                ContractAddress = "0x01",
-                SceneIndex = index,
+                ContractAddress = _contractAddress,
+                SceneIndex = _index,
                 FightParams = new FightParams()
             };
             
