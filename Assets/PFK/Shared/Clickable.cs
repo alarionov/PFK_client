@@ -13,13 +13,17 @@ namespace PFK.Shared
         public void OnPointerEnter(PointerEventData eventData)
         {
             CursorManager.SetCursor(_cursor);
-            _outline.SetActive(true);
+            
+            if (_outline != null) 
+                _outline.SetActive(true);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             CursorManager.SetDefaultCursor();
-            _outline.SetActive(false);
+            
+            if (_outline != null) 
+                _outline.SetActive(false);
         }
     }
 }
