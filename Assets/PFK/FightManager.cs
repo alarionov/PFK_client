@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace PFK
 {
@@ -72,9 +73,11 @@ namespace PFK
         private void QueueAllAttacks(BaseStats baseStats, EnemyUnit[] skeletons, bool[] playerBuffs)
         {
             bool[] skeletonBuffs = new bool[playerBuffs.Length];
-            
-            jsPrintString($"Player stats: { baseStats.Attack } - { baseStats.Health } - { baseStats.Armour }");
-            jsPrintString($"Number of skeletons: { skeletons.Length }");
+
+            #if UNITY_WEBGL && !UNITY_EDITOR
+                jsPrintString($"Player stats: { baseStats.Attack } - { baseStats.Health } - { baseStats.Armour }");
+                jsPrintString($"Number of skeletons: { skeletons.Length }");
+            #endif
             
             for (int i = 0; i < 10; ++i)
             {
@@ -85,7 +88,10 @@ namespace PFK
                     target.Index, target.Stats, skeletonBuffs);
                 
                 skeletons = RecountSkeletons(skeletons);
-                jsPrintString($"Number of skeletons: { skeletons.Length }");
+                
+                #if UNITY_WEBGL && !UNITY_EDITOR
+                    jsPrintString($"Number of skeletons: { skeletons.Length }");
+                #endif
 
                 foreach (EnemyUnit attacker in skeletons)
                 {
@@ -119,11 +125,13 @@ namespace PFK
                 AttackerID = attackerID,
                 VictimID = victimID
             };
-            
-            jsPrintString($"Actual Attack form {attackerID} to {victimID}");
-            jsPrintString($"{attacker.Attack} {attacker.Health} {attacker.Armour}");
-            jsPrintString($"{victim.Attack} {victim.Health} {victim.Armour}");
 
+            #if UNITY_WEBGL && !UNITY_EDITOR
+                jsPrintString($"Actual Attack form {attackerID} to {victimID}");
+                jsPrintString($"{attacker.Attack} {attacker.Health} {attacker.Armour}");
+                jsPrintString($"{victim.Attack} {victim.Health} {victim.Armour}");
+            #endif
+            
             int damage = attacker.Attack;
 
             int hit = _seedReader.Roll(2);
@@ -166,17 +174,21 @@ namespace PFK
 
             action.Damage = Mathf.Clamp(damage, 0, damage);
             
-            jsPrintString($"{action.Type} {action.Damage}");
-            
-            jsPrintString($"{attacker.Attack} {attacker.Health} {attacker.Armour}");
-            jsPrintString($"{victim.Attack} {victim.Health} {victim.Armour}");
-            
+            #if UNITY_WEBGL && !UNITY_EDITOR
+                jsPrintString($"{action.Type} {action.Damage}");
+                jsPrintString($"{attacker.Attack} {attacker.Health} {attacker.Armour}");
+                jsPrintString($"{victim.Attack} {victim.Health} {victim.Armour}");
+            #endif            
+
             _fightQueue.Enqueue(action);   
         }
 
         private IEnumerator FightCoroutine()
         {
-            jsPrintString("==== FIGHT ====");
+            #if UNITY_WEBGL && !UNITY_EDITOR
+                jsPrintString("==== FIGHT ====");
+            #endif
+            
             yield return new WaitForSeconds(1);
 
             while (_fightQueue.Count > 0)
@@ -187,12 +199,12 @@ namespace PFK
                 {
                     CharacterView charComponent = 
                         _enemyUnits[i].GetComponent<CharacterView>();
-
-                    charComponent.HideAttackInfo();
                 }
 
-                jsPrintString($"A: {action.AttackerID} V: {action.VictimID}  Type: {action.Type} D: {action.Damage} V: {action.Vampirism} R: {action.Reflect}");
-                
+                #if UNITY_WEBGL && !UNITY_EDITOR
+                    jsPrintString($"A: {action.AttackerID} V: {action.VictimID}  Type: {action.Type} D: {action.Damage} V: {action.Vampirism} R: {action.Reflect}");
+                #endif                
+
                 CharacterView attackerComponent = 
                     action.AttackerID == -1 ? 
                         _player : _enemyUnits[(int) action.AttackerID];
@@ -230,9 +242,19 @@ namespace PFK
             }
             else
             {
-                PlayerState.GetInstance().Character.Exp += fightParams.Score;
+                //PlayerState.GetInstance().Character.Exp += fightParams.Score;
             }
 
+            yield return new WaitForSeconds(1);
+
+            AsyncOperation asyncLoad = 
+                SceneManager.LoadSceneAsync("PFK/Acts/Act001/Act1", LoadSceneMode.Single);
+            
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
+            
             /*
             if (fightParams.Victory)
             {
@@ -250,7 +272,6 @@ namespace PFK
                 SceneManager.LoadScene(_drawScene, LoadSceneMode.Single);
             }
             */
-            jsPrintString("Scene should be loaded");
         }
     }
 }

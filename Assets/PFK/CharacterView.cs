@@ -19,18 +19,6 @@ namespace PFK
             Sub
         }
 
-        [Header("Effects")] 
-        [SerializeField] private GameObject _missPanel;
-        
-        [SerializeField] private GameObject _damagePanel;
-        [SerializeField] private GameObject _critIndicator;
-        [SerializeField] private TMP_Text _damageValue;
-        
-        [SerializeField] private GameObject _vampPanel;
-        [SerializeField] private TMP_Text _healValue;
-
-        [SerializeField] private GameObject _reflectPanel;
-        
         [Header("Stats")]
         [SerializeField] private TMP_Text _attack;
         [SerializeField] private TMP_Text _health;
@@ -39,8 +27,6 @@ namespace PFK
         private void Start()
         {
             _animationController = GetComponent<CharacterAnimationController>();
-            
-            HideAttackInfo();
         }
 
         public void UpdateStats(BaseStats stats, UpdateMode mode = UpdateMode.Set)
@@ -74,15 +60,6 @@ namespace PFK
             Render();
         }
 
-        public void HideAttackInfo()
-        {
-            _missPanel.SetActive(false);
-            _damagePanel.SetActive(false);
-            _critIndicator.SetActive(false);
-            _vampPanel.SetActive(false);
-            _reflectPanel.SetActive(false);
-        }
-
         public void ShowAttack() => _animationController.Slashing();
 
         public void ShowDamage(FightAction action)
@@ -104,13 +81,13 @@ namespace PFK
 
             if (action.Type == AttackType.Miss)
             {
-                _missPanel.SetActive(true);
+                //_missPanel.SetActive(true);
             }
             else
             {
-                _damagePanel.SetActive(true);
-                _critIndicator.SetActive(action.Type == AttackType.Crit);
-                _damageValue.SetText(action.Damage.ToString());
+                //_damagePanel.SetActive(true);
+                //_critIndicator.SetActive(action.Type == AttackType.Crit);
+                //_damageValue.SetText(action.Damage.ToString());
             }
         }
         
@@ -131,21 +108,21 @@ namespace PFK
                 _animationController.Hurt();
             }
             
-            _damagePanel.SetActive(true);
-            _damageValue.SetText(damage.ToString());
+            //_damagePanel.SetActive(true);
+            //_damageValue.SetText(damage.ToString());
         }
 
         public void ShowVampirism()
         {
             UpdateStats(new BaseStats(){Health = 1}, UpdateMode.Add);
             
-            _vampPanel.SetActive(true);
-            _healValue.SetText("1");
+            //_vampPanel.SetActive(true);
+            //_healValue.SetText("1");
         }
 
         public void ShowReflect()
         {
-            _reflectPanel.SetActive(true);
+            //_reflectPanel.SetActive(true);
         }
 
         private void Render()

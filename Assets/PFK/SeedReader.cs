@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace PFK
 {
     public class SeedReader

@@ -15,6 +15,11 @@ MonoBehaviour:
   _entries:
   - Title: Act 1 Storyline
     ContractAddress: 0x01
-    DirectoryPrefix: PFK/Acts/Act001/Fights
+    DirectoryPrefix: PFK/Acts/Act001/007_Fights
+    Scenes:
+    - 001_Milestone_1/Scene
+  - Title: Act 1 SideQuests
+    ContractAddress: 0x02
+    DirectoryPrefix: PFK/Acts/Act001/007_Fights
     Scenes:
     - 001_Milestone_1/Scene

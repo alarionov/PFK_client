@@ -130,12 +130,22 @@ namespace PFK
 
         private IEnumerator LoadAndFight(FightWrapper fight)
         {
+            Fight.NewFight(fight.FightParams);
+            
             ShowLoadingScreen();
             yield return new WaitForSeconds(1);
+            
+            AsyncOperation asyncLoad = 
+                SceneManager.LoadSceneAsync(
+                    _fightScenes.GetScene(fight.ContractAddress, fight.SceneIndex), 
+                    LoadSceneMode.Single);
+            
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
+            
             HideLoadingScreen();
-            SceneManager.LoadScene(
-                _fightScenes.GetScene(fight.ContractAddress, fight.SceneIndex), 
-                LoadSceneMode.Single);
         }
     }
 }
