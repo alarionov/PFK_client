@@ -1,0 +1,93 @@
+We probably shouldn't use Purrpelope or reveal anything about her at this point, beside the fact that she is the ruler of this kingdom
+We can use her adviser/s or lieutenants instead
+
+The enemies for main story are better to be undead and/or demons. We can "kill" them without killing but rather banishing back to their realm
+The enemies for the side-quests don't have to be evil, maybe just mischievous or chaotic forces of nature: we abandoned the fields, so satyrs and elves came there in big quantities and now they cause problems for farmers
+
+Main Story questions: do we know it's 7 fights? or do we think it's just some enemies blocking the castle and we learn as we go?
+
+The dialogues may include the narrator(N), the self reflection of the hero(H) and some npc (e.g. purrnelope's adviser (A)) or enemy (E)
+
+
+Introduction
+A: Hello purrior, as you might know we have been under the siege for a while now, we thought if we ignore the problem it would go away.
+Instead we ran out of resources and need you to break the enemy forces so could access the provision from the farm, also it would be good to get in contact with the rest of the world, who knows maybe these troubles are not as local as we thought
+
+Player's available actions: main story fight 1
+
+Fight 1
+Pre fight: i
+N: blah blah you came to the road from the castle, you can see a lone skeleton running around scaring civilians
+
+Post fight:
+H: Phew, it wasn't that hard! But it looks like we have to much more to get to the rest of the continent.
+A: At least farmers can go to the field now.
+
+Player's available actions: main story fight 2, Side-quest 1
+
+Fight 2
+Pre:
+N: Going further along the road you meet the next challenge. This time it's not a lonely skeleton, it's a group, are they organized?
+
+Post:
+A: great progress my friend, we also cleared the path to the woods, lumberjacks got bored without a job
+
+Player's available actions: main story fight 3, side-quests 1,2
+
+Fight 3
+Pre: Skeletons and Mummy, who angered the dead?
+Post: Access to ore mine's
+
+Player's available actions: main story fight 3, side-quests 1,2,3
+
+Fight 4
+Pre: Skeletons and demons, so hell is also involved?
+Player's available actions: main story fight 3, side-quests 1,2,3,4
+
+Fight 5
+Pre: We are approaching a graveyard, whatever happened, it could have happened there, a lot of skeletons, mummies and zombies
+Post: It's getting serious
+Player's available actions: main story fight 3, side-quests 1,2,3,4,5,6
+
+Fight 6
+Pre: Magician Undead and Magician demon, are you raising the dead? but why?
+Post: We are almost there, make sure to be prepared for the final fight
+Player's available actions: main story fight 3, side-quests 1,2,3,4,5,6
+
+Fight 7
+Pre: Final Boss, Lich, is it you who organized all of this?
+Post:
+Lich: you might be won the battle, but not the war, we will see each other again
+
+Conclusion
+We didn't learn much but we got to the big road, we can go to the neighboring kingdom and check what is happening there
+
+
+Side-quest 1
+Pre: Hello purrior, while we were distracted by the army of the dead, no one was looking after the field. Pesky goblins decided it's their territory now! Show them who's in charge in this kingdom
+Post: Many thanks, we can now get some food, here's your reward
+
+
+Side-quest 2
+Pre: Hello purrior, the woods are infested with orcs, help us to scare them away
+Post: Job well done my friend, with the wood we got, we were not only able to repair our buildings but also prepared a gift for you, I hope it helps in your future fight: <Wooden Shield>
+
+Side-quest 3
+Pre: Golems on the loose
+Post: thank, here is your iron sword
+
+Side-quest 4
+Pre: Satyrs gone feral, we can't get flower and herbs from the magic meadow, how can we create potions?
+Post: Thanks, now we can get that sweet Nepeta Cataria
+
+Side-quest 5
+Pre: Lumberjack were so eager to get to work so some of them wandered into elf's territory. Our pointy-eared friends get jumpy with all this dark armies roaming around, can you get there and free the lumberjack before something bad happened?
+Post: Thanks!
+
+Side-quest 6
+Pre: Some skeletons are still roaming the graveyard
+Post: thanks, it much better this way
+
+Misc:
+When player looses the fight:
+A: Some training might help, or just try again, you might get lucky!

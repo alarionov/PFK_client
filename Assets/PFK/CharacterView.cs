@@ -23,7 +23,12 @@ namespace PFK
         [SerializeField] private TMP_Text _attack;
         [SerializeField] private TMP_Text _health;
         [SerializeField] private TMP_Text _armour;
-        
+
+        private void Awake()
+        {
+            Render();
+        }
+
         private void Start()
         {
             _animationController = GetComponent<CharacterAnimationController>();

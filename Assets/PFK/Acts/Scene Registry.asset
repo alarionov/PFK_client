@@ -18,6 +18,7 @@ MonoBehaviour:
     DirectoryPrefix: PFK/Acts/Act001/007_Fights
     Scenes:
     - 001_Milestone_1/Scene
+    - 002_Milestone_2/Scene
   - Title: Act 1 SideQuests
     ContractAddress: 0x02
     DirectoryPrefix: PFK/Acts/Act001/007_Fights
