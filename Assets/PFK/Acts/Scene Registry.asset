@@ -19,6 +19,11 @@ MonoBehaviour:
     Scenes:
     - 001_Milestone_1/Scene
     - 002_Milestone_2/Scene
+    - 003_Milestone_3/Scene
+    - 004_Milestone_4/Scene
+    - 005_Milestone_5/Scene
+    - 006_Milestone_6/Scene
+    - 007_Milestone_7/Scene
   - Title: Act 1 SideQuests
     ContractAddress: 0x02
     DirectoryPrefix: PFK/Acts/Act001/007_Fights

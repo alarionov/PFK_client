@@ -185,7 +185,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68066694}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1341, y: 467, z: 0}
+  m_LocalPosition: {x: 1640, y: 609, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 344575764}
@@ -1560,8 +1560,8 @@ GameObject:
   - component: {fileID: 336488019}
   - component: {fileID: 336488018}
   - component: {fileID: 336488021}
-  - component: {fileID: 336488022}
   - component: {fileID: 336488023}
+  - component: {fileID: 336488022}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -1633,13 +1633,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 336488022}
-        m_TargetAssemblyTypeName: PFK.Acts.Act001.TestFight, Assembly-CSharp
-        m_MethodName: LoadFight
+        m_TargetAssemblyTypeName: PFK.Shared.InstantiatePrefab, Assembly-CSharp
+        m_MethodName: Instantiate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 4
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1705,11 +1705,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 336488016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2969cd57b337d47b9a009f8e139236ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 82ed1eaae10bc4ec6b8dd7f155266e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _contractAddress: 0x01
-  _index: 4
+  _prefab: {fileID: 1913109641784116324, guid: 9afaca97bf69843c6aac12d4acc790e2, type: 3}
+  _parent: {fileID: 6846720410956443649}
 --- !u!114 &336488023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2649,7 +2649,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 652892877}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1600.9001, y: 753.6, z: 0}
+  m_LocalPosition: {x: 1506, y: 826, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 515634939}
@@ -2670,8 +2670,8 @@ GameObject:
   - component: {fileID: 661924695}
   - component: {fileID: 661924694}
   - component: {fileID: 661924697}
-  - component: {fileID: 661924698}
   - component: {fileID: 661924699}
+  - component: {fileID: 661924698}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -2743,13 +2743,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 661924698}
-        m_TargetAssemblyTypeName: PFK.Acts.Act001.TestFight, Assembly-CSharp
-        m_MethodName: LoadFight
+        m_TargetAssemblyTypeName: PFK.Shared.InstantiatePrefab, Assembly-CSharp
+        m_MethodName: Instantiate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 6
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2815,11 +2815,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 661924692}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2969cd57b337d47b9a009f8e139236ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 82ed1eaae10bc4ec6b8dd7f155266e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _contractAddress: 0x01
-  _index: 6
+  _prefab: {fileID: 1913109641784116324, guid: 52b4cdc0441ac4892bba0afcf3554840, type: 3}
+  _parent: {fileID: 6846720410956443649}
 --- !u!114 &661924699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5017,8 +5017,8 @@ GameObject:
   - component: {fileID: 1310902117}
   - component: {fileID: 1310902116}
   - component: {fileID: 1310902119}
-  - component: {fileID: 1310902120}
   - component: {fileID: 1310902121}
+  - component: {fileID: 1310902120}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -5090,13 +5090,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1310902120}
-        m_TargetAssemblyTypeName: PFK.Acts.Act001.TestFight, Assembly-CSharp
-        m_MethodName: LoadFight
+        m_TargetAssemblyTypeName: PFK.Shared.InstantiatePrefab, Assembly-CSharp
+        m_MethodName: Instantiate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -5162,11 +5162,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1310902114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2969cd57b337d47b9a009f8e139236ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 82ed1eaae10bc4ec6b8dd7f155266e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _contractAddress: 0x01
-  _index: 3
+  _prefab: {fileID: 1913109641784116324, guid: 76e07c17f1f254ecb93e32b234801867, type: 3}
+  _parent: {fileID: 6846720410956443649}
 --- !u!114 &1310902121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5304,8 +5304,8 @@ GameObject:
   - component: {fileID: 1373868507}
   - component: {fileID: 1373868506}
   - component: {fileID: 1373868509}
-  - component: {fileID: 1373868510}
   - component: {fileID: 1373868511}
+  - component: {fileID: 1373868510}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -5377,13 +5377,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1373868510}
-        m_TargetAssemblyTypeName: PFK.Acts.Act001.TestFight, Assembly-CSharp
-        m_MethodName: LoadFight
+        m_TargetAssemblyTypeName: PFK.Shared.InstantiatePrefab, Assembly-CSharp
+        m_MethodName: Instantiate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -5449,11 +5449,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1373868504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2969cd57b337d47b9a009f8e139236ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 82ed1eaae10bc4ec6b8dd7f155266e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _contractAddress: 0x01
-  _index: 2
+  _prefab: {fileID: 1913109641784116324, guid: 290123085023e4d0883d901ee49a3462, type: 3}
+  _parent: {fileID: 6846720410956443649}
 --- !u!114 &1373868511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6530,8 +6530,8 @@ GameObject:
   - component: {fileID: 1702345927}
   - component: {fileID: 1702345926}
   - component: {fileID: 1702345929}
-  - component: {fileID: 1702345930}
   - component: {fileID: 1702345931}
+  - component: {fileID: 1702345930}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -6603,13 +6603,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1702345930}
-        m_TargetAssemblyTypeName: PFK.Acts.Act001.TestFight, Assembly-CSharp
-        m_MethodName: LoadFight
+        m_TargetAssemblyTypeName: PFK.Shared.InstantiatePrefab, Assembly-CSharp
+        m_MethodName: Instantiate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 5
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -6675,11 +6675,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1702345924}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2969cd57b337d47b9a009f8e139236ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 82ed1eaae10bc4ec6b8dd7f155266e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _contractAddress: 0x01
-  _index: 5
+  _prefab: {fileID: 1913109641784116324, guid: 57ef493e9319b4188a71304d2f815466, type: 3}
+  _parent: {fileID: 6846720410956443649}
 --- !u!114 &1702345931
 MonoBehaviour:
   m_ObjectHideFlags: 0
