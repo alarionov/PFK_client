@@ -28,4 +28,9 @@ MonoBehaviour:
     ContractAddress: 0x02
     DirectoryPrefix: PFK/Acts/Act001/007_Fights
     Scenes:
-    - 001_Milestone_1/Scene
+    - 011_SideQuest_1/Scene
+    - 012_SideQuest_2/Scene
+    - 013_SideQuest 3/Scene
+    - 014_SideQuest 4/Scene
+    - 015_SideQuest 5/Scene
+    - 016_SideQuest 6/Scene

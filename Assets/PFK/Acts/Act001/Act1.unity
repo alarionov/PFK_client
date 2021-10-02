@@ -1079,8 +1079,8 @@ GameObject:
   - component: {fileID: 254323434}
   - component: {fileID: 254323433}
   - component: {fileID: 254323432}
-  - component: {fileID: 254323436}
   - component: {fileID: 254323437}
+  - component: {fileID: 254323436}
   m_Layer: 0
   m_Name: MineButton
   m_TagString: Untagged
@@ -1152,8 +1152,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 254323436}
-        m_TargetAssemblyTypeName: PFK.Acts.Act001.TestFight, Assembly-CSharp
-        m_MethodName: LoadFight
+        m_TargetAssemblyTypeName: PFK.Shared.InstantiatePrefab, Assembly-CSharp
+        m_MethodName: Instantiate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1224,11 +1224,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 254323430}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2969cd57b337d47b9a009f8e139236ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 82ed1eaae10bc4ec6b8dd7f155266e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _contractAddress: 0x02
-  _index: 2
+  _prefab: {fileID: 1913109641784116324, guid: a3e7a34f4448441d083db2f802b92e5f, type: 3}
+  _parent: {fileID: 6846720410956443649}
 --- !u!114 &254323437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3541,8 +3541,8 @@ GameObject:
   - component: {fileID: 917699601}
   - component: {fileID: 917699600}
   - component: {fileID: 917699599}
-  - component: {fileID: 917699603}
   - component: {fileID: 917699604}
+  - component: {fileID: 917699603}
   m_Layer: 0
   m_Name: LumberyardButton
   m_TagString: Untagged
@@ -3614,8 +3614,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 917699603}
-        m_TargetAssemblyTypeName: PFK.Acts.Act001.TestFight, Assembly-CSharp
-        m_MethodName: LoadFight
+        m_TargetAssemblyTypeName: PFK.Shared.InstantiatePrefab, Assembly-CSharp
+        m_MethodName: Instantiate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3686,11 +3686,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 917699597}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2969cd57b337d47b9a009f8e139236ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 82ed1eaae10bc4ec6b8dd7f155266e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _contractAddress: 0x02
-  _index: 1
+  _prefab: {fileID: 1913109641784116324, guid: 14be62e1dd5474086bcb20a65c7d5827, type: 3}
+  _parent: {fileID: 6846720410956443649}
 --- !u!114 &917699604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3716,8 +3716,8 @@ GameObject:
   - component: {fileID: 920546546}
   - component: {fileID: 920546545}
   - component: {fileID: 920546544}
-  - component: {fileID: 920546548}
   - component: {fileID: 920546549}
+  - component: {fileID: 920546548}
   m_Layer: 0
   m_Name: GraveyardButton
   m_TagString: Untagged
@@ -3789,8 +3789,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 920546548}
-        m_TargetAssemblyTypeName: PFK.Acts.Act001.TestFight, Assembly-CSharp
-        m_MethodName: LoadFight
+        m_TargetAssemblyTypeName: PFK.Shared.InstantiatePrefab, Assembly-CSharp
+        m_MethodName: Instantiate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3861,11 +3861,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 920546542}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2969cd57b337d47b9a009f8e139236ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 82ed1eaae10bc4ec6b8dd7f155266e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _contractAddress: 0x02
-  _index: 4
+  _prefab: {fileID: 1913109641784116324, guid: 742bbd0ede56342afb5fc13bb8796283, type: 3}
+  _parent: {fileID: 6846720410956443649}
 --- !u!114 &920546549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4842,8 +4842,8 @@ GameObject:
   - component: {fileID: 1215926946}
   - component: {fileID: 1215926945}
   - component: {fileID: 1215926944}
-  - component: {fileID: 1215926948}
   - component: {fileID: 1215926949}
+  - component: {fileID: 1215926948}
   m_Layer: 0
   m_Name: FieldsButton
   m_TagString: Untagged
@@ -4915,8 +4915,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1215926948}
-        m_TargetAssemblyTypeName: PFK.Acts.Act001.TestFight, Assembly-CSharp
-        m_MethodName: LoadFight
+        m_TargetAssemblyTypeName: PFK.Shared.InstantiatePrefab, Assembly-CSharp
+        m_MethodName: Instantiate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4987,11 +4987,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1215926942}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2969cd57b337d47b9a009f8e139236ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 82ed1eaae10bc4ec6b8dd7f155266e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _contractAddress: 0x02
-  _index: 0
+  _prefab: {fileID: 1913109641784116324, guid: 8a340155a27cf443487c15eba08a0e14, type: 3}
+  _parent: {fileID: 6846720410956443649}
 --- !u!114 &1215926949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5479,8 +5479,8 @@ GameObject:
   - component: {fileID: 1398667886}
   - component: {fileID: 1398667885}
   - component: {fileID: 1398667884}
-  - component: {fileID: 1398667888}
   - component: {fileID: 1398667889}
+  - component: {fileID: 1398667888}
   m_Layer: 0
   m_Name: ElvenHatsButton
   m_TagString: Untagged
@@ -5550,7 +5550,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1398667886}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1398667888}
+        m_TargetAssemblyTypeName: PFK.Shared.InstantiatePrefab, Assembly-CSharp
+        m_MethodName: Instantiate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1398667885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5612,11 +5624,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1398667882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2969cd57b337d47b9a009f8e139236ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 82ed1eaae10bc4ec6b8dd7f155266e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _contractAddress: 0x02
-  _index: 3
+  _prefab: {fileID: 1913109641784116324, guid: 47e5cf990408d42da81fcf4acfebab1a, type: 3}
+  _parent: {fileID: 6846720410956443649}
 --- !u!114 &1398667889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7502,8 +7514,8 @@ GameObject:
   - component: {fileID: 2083509233}
   - component: {fileID: 2083509232}
   - component: {fileID: 2083509231}
-  - component: {fileID: 2083509235}
   - component: {fileID: 2083509236}
+  - component: {fileID: 2083509235}
   m_Layer: 0
   m_Name: MineButton
   m_TagString: Untagged
@@ -7573,7 +7585,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2083509233}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2083509235}
+        m_TargetAssemblyTypeName: PFK.Shared.InstantiatePrefab, Assembly-CSharp
+        m_MethodName: Instantiate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2083509232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7635,11 +7659,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2083509229}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2969cd57b337d47b9a009f8e139236ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 82ed1eaae10bc4ec6b8dd7f155266e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _contractAddress: 0x02
-  _index: 2
+  _prefab: {fileID: 1913109641784116324, guid: e6f8fe0fab9bd40da93f6111a598aebb, type: 3}
+  _parent: {fileID: 6846720410956443649}
 --- !u!114 &2083509236
 MonoBehaviour:
   m_ObjectHideFlags: 0
