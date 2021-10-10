@@ -1,5 +1,4 @@
 using UnityEngine;
-using WordBearers;
 
 namespace PFK
 {
@@ -24,7 +23,7 @@ namespace PFK
         {
             if (_instance is null)
             {
-                _instance = new PlayerState();
+                _instance = new PlayerState(){ State = new BaseState() };
             }
 
             return _instance;
@@ -44,7 +43,7 @@ namespace PFK
 
         public void LoadBuffs(string encodedBuffs)
         {
-            Buffs = JsonUtility.FromJson<BuffWrapper>(encodedBuffs).Buffs;
+            //Buffs = JsonUtility.FromJson<BuffWrapper>(encodedBuffs).Buffs;
             OnChange?.Invoke(this);
             OnBuffsChange?.Invoke(this);
         }

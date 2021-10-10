@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 using PFK.Acts.SceneRegistry;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using WordBearers;
 using WordBearers.Leaderboard;
 
 namespace PFK

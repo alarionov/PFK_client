@@ -11,6 +11,7 @@ namespace PFK
         public BaseStats BaseStats => _stats;
         
         private CharacterAnimationController _animationController; 
+        private VFX.Controller _vfxController;
         
         public enum UpdateMode
         {
@@ -26,6 +27,7 @@ namespace PFK
 
         private void Awake()
         {
+            _vfxController = Instantiate(GlobalRegistry.GetGlobalRegistry().VFXController, transform);
             Render();
         }
 
@@ -69,42 +71,37 @@ namespace PFK
 
         public void ShowDamage(FightAction action)
         {
-            UpdateStats(new BaseStats(){ Health = action.Damage }, UpdateMode.Sub);
-            
-            if (action.Type == AttackType.Miss || action.Damage == 0 )
+            if (action.Type == AttackType.Miss)
             {
                 _animationController.Blinking();
             }
-            else if (_stats.Health <= 0)
+            else 
             {
-                _animationController.Dying();
-            }
-            else
-            {
-                _animationController.Hurt();
-            }
+                UpdateStats(new BaseStats(){ Health = action.Damage }, UpdateMode.Sub);
 
-            if (action.Type == AttackType.Miss)
-            {
-                //_missPanel.SetActive(true);
+                if (_stats.Health > 0)
+                {
+                    _animationController.Hurt();
+                }
+                else
+                {
+                    _animationController.Dying();
+                }
             }
-            else
-            {
-                //_damagePanel.SetActive(true);
-                //_critIndicator.SetActive(action.Type == AttackType.Crit);
-                //_damageValue.SetText(action.Damage.ToString());
-            }
+            
+            _vfxController.ShowDamage(
+                action.Damage, 
+                action.Type == AttackType.Crit,
+                action.Damage == 0 && action.Type != AttackType.Miss,
+                action.Type == AttackType.Miss
+            );
         }
         
         public void ShowDamage(int damage)
         {
             UpdateStats(new BaseStats(){ Health = damage }, UpdateMode.Sub);
             
-            if (damage == 0)
-            {
-                _animationController.Blinking();
-            }
-            else if (_stats.Health <= 0)
+            if (_stats.Health <= 0)
             {
                 _animationController.Dying();
             }
@@ -113,8 +110,7 @@ namespace PFK
                 _animationController.Hurt();
             }
             
-            //_damagePanel.SetActive(true);
-            //_damageValue.SetText(damage.ToString());
+            _vfxController.ShowDamage(damage, blocked: damage == 0);
         }
 
         public void ShowVampirism()

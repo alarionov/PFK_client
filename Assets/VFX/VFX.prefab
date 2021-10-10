@@ -45,6 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff547850d8e524ddbbbcbd2dca9d094c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hitTextSize: 1
+  _hitTextColor: {r: 0.9607843, g: 0.8756626, b: 0.023529435, a: 1}
+  _critTextSize: 2
+  _critTextColor: {r: 1, g: 0.08864497, b: 0.0141509175, a: 1}
   _bloodSplashAnimator: {fileID: 2039172119043891493}
   _damageValueAnimator: {fileID: 5476380447684103663}
 --- !u!1 &2039172119043891488

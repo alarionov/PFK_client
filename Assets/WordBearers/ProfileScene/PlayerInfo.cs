@@ -1,4 +1,3 @@
-using System;
 using System.Runtime.InteropServices;
 using PFK;
 using TMPro;
@@ -22,7 +21,6 @@ namespace WordBearers.ProfileScene
         
         [SerializeField] private TMP_Text _tokenId;
         [SerializeField] private TMP_Text _level;
-        [SerializeField] private TMP_Text _difficulty;
 
         private void Start()
         {
@@ -39,7 +37,6 @@ namespace WordBearers.ProfileScene
         {
             _tokenId?.SetText(state.State.tokenId.ToString());
             _level?.SetText(state.State.level.ToString());
-            _difficulty?.SetText(state.State.difficulty.ToString());
         }
 
         public void LoadBuffs() => jsGetBuffs(PlayerState.GetInstance().Wallet);
