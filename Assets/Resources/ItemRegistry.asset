@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc2dd891741ae46659a0b9248a9b8e59, type: 3}
+  m_Name: ItemRegistry
+  m_EditorClassIdentifier: 
+  _weaponSets:
+  - Title: Wooden Stick
+    WeaponType: 0
+    Weapon: {fileID: 21300000, guid: 86e1774119e504a429202916b964fd00, type: 3}
+    SlashFX: {fileID: 21300000, guid: 927dbeb2a35044afc980a010f505bfd7, type: 3}
+  - Title: Iron Sword
+    WeaponType: 1
+    Weapon: {fileID: 21300000, guid: f6537aaae09b943338ab5b9fd37ec083, type: 3}
+    SlashFX: {fileID: 21300000, guid: d99db7ef85b6a44c89928b858f3ac778, type: 3}
+  - Title: Zombie Hand
+    WeaponType: 2
+    Weapon: {fileID: 21300000, guid: 6d8c7162af0e1448ab4a84ce3b95a969, type: 3}
+    SlashFX: {fileID: 21300000, guid: a82210ba5b2044ea3ae446d3fcf6fd16, type: 3}
+  _armorSets:
+  - Title: Prison Robe
+    ArmorType: 0
+    LeftLeg: {fileID: 21300000, guid: ccbf6c42176fc480281f33f55e2b4c21, type: 3}
+    RightLeg: {fileID: 21300000, guid: e6b2ec366d558455fb9c40075b4920c5, type: 3}
+    LeftArm: {fileID: 21300000, guid: 75c67f9e0f36c414c9092b1a142315f2, type: 3}
+    LeftHand: {fileID: 21300000, guid: 33b51ab7e44a44defaae204f327ed679, type: 3}
+    RightArm: {fileID: 21300000, guid: 423b335b0c63d472192091652e0aa8f4, type: 3}
+    RightHand: {fileID: 21300000, guid: ba6fdf8a02cd746349a2171b4af15586, type: 3}
+    Body: {fileID: 21300000, guid: 547d1eb40a32447bdada0547b78473c8, type: 3}
+  - Title: Knight Armor
+    ArmorType: 1
+    LeftLeg: {fileID: 21300000, guid: 396d8b0c221cb4be69a7a4ed62285c69, type: 3}
+    RightLeg: {fileID: 21300000, guid: 4f43a85569c7549238666cca18ea9bff, type: 3}
+    LeftArm: {fileID: 21300000, guid: 0918a5a5fd2de4582aab1acf11a9ac08, type: 3}
+    LeftHand: {fileID: 21300000, guid: b1da97b5e9167431b92866e91cfedd62, type: 3}
+    RightArm: {fileID: 21300000, guid: 5dbcae90b6a004de0800498998e74236, type: 3}
+    RightHand: {fileID: 21300000, guid: ae6e65fb784f243408eb37bdd15337fc, type: 3}
+    Body: {fileID: 21300000, guid: 96b98d273926f498ebf972e5e3a6360b, type: 3}
+  - Title: Orc's Skin
+    ArmorType: 2
+    LeftLeg: {fileID: 21300000, guid: c5fbd98f02c864458b685ba50227e5be, type: 3}
+    RightLeg: {fileID: 21300000, guid: 010250a13d41b43b58755d1f81ae88b5, type: 3}
+    LeftArm: {fileID: 21300000, guid: ed2075150914a4808a3b3ee1015479f7, type: 3}
+    LeftHand: {fileID: 21300000, guid: 9850fa20e9fb84cccb6f5870795b82eb, type: 3}
+    RightArm: {fileID: 21300000, guid: 685b9baee3ebe446bb9da6b6f188c006, type: 3}
+    RightHand: {fileID: 21300000, guid: 9d9ecf88d14ed4e6eaed98e863d84c07, type: 3}
+    Body: {fileID: 21300000, guid: b1c8d3532f1f64675bd5b01602f0afe2, type: 3}

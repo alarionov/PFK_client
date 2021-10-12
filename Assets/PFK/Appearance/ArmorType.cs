@@ -2,6 +2,8 @@ namespace PFK.Appearance
 {
     public enum ArmorType
     {
-        Basic
+        PrisonRobe,
+        KnightArmor,
+        OrcSkin
     }
 }

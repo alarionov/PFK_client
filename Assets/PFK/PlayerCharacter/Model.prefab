@@ -409,18 +409,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bdec36ff7c6d42069486a5d6736f5fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftLeg: {fileID: 7769743521426236362}
-  _rightLeg: {fileID: 7768989703856208930}
   _head: {fileID: 7769452288811831892}
   _face: {fileID: 7768978385963405840}
+  _leftLeg: {fileID: 7769743521426236362}
+  _rightLeg: {fileID: 7768989703856208930}
   _leftArm: {fileID: 7768945651654169870}
   _leftHand: {fileID: 7768919804743896008}
   _rightArm: {fileID: 7769726917020532588}
   _rightHand: {fileID: 7768750336221437494}
+  _body: {fileID: 7770118202417862534}
   _weapon: {fileID: 7769417606669963740}
   _slashFX: {fileID: 7769793011703977494}
-  _body: {fileID: 7770118202417862534}
-  _tmpHeadSprite: {fileID: 21300000, guid: 862888e733583475e82fda97c2951687, type: 3}
 --- !u!1 &7576624075323734388
 GameObject:
   m_ObjectHideFlags: 0

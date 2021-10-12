@@ -1,3 +1,4 @@
+using PFK.Appearance;
 using UnityEngine;
 
 namespace PFK.PlayerCharacter
@@ -27,6 +28,26 @@ namespace PFK.PlayerCharacter
             
             int tokenId = 3029;
             _head.sprite = Resources.Load<Sprite>($"PurrHeads/{tokenId}");
+
+            Wear(ItemRegistry.GetWeaponSet(WeaponType.WoodenStick));
+            Wear(ItemRegistry.GetArmorSet(ArmorType.PrisonRobe));
+        }
+
+        public void Wear(WeaponSet weaponSet)
+        {
+            _weapon.sprite = weaponSet.Weapon;
+            _slashFX.sprite = weaponSet.SlashFX;
+        }
+
+        public void Wear(ArmorSet armorSet)
+        {
+            _leftLeg.sprite = armorSet.LeftLeg;
+            _rightLeg.sprite = armorSet.RightLeg;
+            _leftArm.sprite = armorSet.LeftArm;
+            _leftHand.sprite = armorSet.LeftHand;
+            _rightArm.sprite = armorSet.RightArm;
+            _rightHand.sprite = armorSet.RightHand;
+            _body.sprite = armorSet.Body;
         }
     }
 
