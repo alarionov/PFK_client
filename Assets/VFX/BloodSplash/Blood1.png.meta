@@ -42,6 +42,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -256,6 +257,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Blood1_0: 1003376004645096373
+      Blood1_2: -1685053098015485144
+      Blood1_3: -5786311369539793742
+      Blood1_1: 1238665497604397250
+      Blood1_5: -4279545128151749276
+      Blood1_4: -2943838874016252185
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
