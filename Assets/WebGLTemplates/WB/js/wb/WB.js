@@ -1,5 +1,4 @@
-import { AbiRegistry } from "./AbiRegistry.js";
-import BuffsParser from "./BuffsParser.js";
+import { ContractRegistry } from "./ContractRegistry.js";
 import CharacterParser from "./CharacterParser.js";
 import EventLookup from "./EventLookup.js";
 import FightParser from "./FightParser.js";
@@ -16,21 +15,30 @@ class WB
             throw "Unity Instance is not defined";
         }
 
+        console.log("testing contract registry");
+        console.log(ContractRegistry.AuthContract);
+        
         this.blockSize = 64;
         this.unityInstance = unityInstance;
-        this.CoreContract =  "0x95b25B0855f90F43ae60a7fAb67EadDC3412d30f";
-        this.CharContract = "0xa99F479b6134dE8ff4c633EE9e89e2cAD3DeE23b";
-        this.FightLogicContract = "0x115aBfE20480AC494bacDd9Ed048B4b96De7F23D";
-        this.FightContract = "0xaBd075bda3A28FdC7C4Cd84067bC2FD94338116C";
+        this.CONTRACT_ADDRESSES = {
+            "AuthContract": "",
+            "RandomContract": "0xE3659A17D1eeec8E9f24BcBC76d3C1fd48Ab4880",
+            "CharacterContract": "0xB152dD6fa4D2e4a86C385a3217Afb866B691374C",
+            "FightContract": "0x3AF816A2cE5aCc8Fa1A918381B8375B372f3e783",
+            "FightManagerContract": "0xaEB6F6bC492025B4A0597E5a1a05c5094ce35ddc",
+            "EquipmentContract": "0x507eDC3528a83701F43C69c4F097EcfB394f8f4c",
+            "EquipmentManagerContract": "0x2bCF7c3EC331d8234D0a7C5E4D27A9f64b609a3a",
+            "Act1Milestones": "0x6b6992dD2C14FDb0b77A31641f4710c603B30022",
+            "Act1Sidequests": "0x2499aaa7DE00ca0Fb0Ea745aedD745Bec4e51b55"
+        };
         
-        this.buffsParser = new BuffsParser(this.blockSize);
         this.stateParser = new StateParser(this.blockSize);
         this.characterParser = new CharacterParser(this.blockSize);
         this.fightParser = new FightParser(this.blockSize);
         this.newStatsParser = new NewStatsParser(this.blockSize);
         this.levelUpParser = new LevelUpParser(this.blockSize);
         
-        this.eventLookup = new EventLookup(this.CoreContract, this.CharContract, this.FightLogicContract, this.FightContract);
+        //this.eventLookup = new EventLookup(this.CoreContract, this.CharContract, this.FightLogicContract, this.FightContract);
     }
 
     /*
@@ -105,61 +113,6 @@ class WB
         };
 
         this.unityInstance.SendMessage("[WalletManager]", "SetState", JSON.stringify(state));
-    };
-
-    getBuffs = async (playerAddress) =>
-    {
-        console.log("WB.getBuffs");
-        const abi = AbiRegistry.Core;
-
-        const contract = new this.web3.eth.Contract(abi, this.CoreContract);
-        const response = await contract.methods.getBuffs(playerAddress).call();
-        const state = { Buffs: response };
-
-        this.unityInstance.SendMessage("[WalletManager]", "BuffsLoaded", JSON.stringify(state));
-    };
-
-    registerCharacter = async (playerAddress) =>
-    {
-        console.log("WB.registerCharacter");
-        const abi = AbiRegistry.Core;
-
-        const contract = new this.web3.eth.Contract(abi, this.CoreContract);
-
-        this.unityInstance.SendMessage("[WalletManager]", "ShowLoadingScreen");
-        const tx = await contract.methods.registerCharacter(0).send({from: playerAddress});
-        this.unityInstance.SendMessage("[WalletManager]", "HideLoadingScreen");
-
-        if (tx.status === false)
-        {
-            console.error("Could not create a character", tx);
-            return;
-        }
-
-        const character = this.characterParser.parse(this.eventLookup.characterEvent(tx));
-        this.unityInstance.SendMessage("[WalletManager]", "CharacterLoaded", JSON.stringify(character));
-
-        const buffs = { Buffs: this.buffsParser.parse(this.eventLookup.buffsEvent(tx)) };
-        this.unityInstance.SendMessage("[WalletManager]", "BuffsLoaded", JSON.stringify(buffs));
-
-        const state = this.stateParser.parse( this.eventLookup.stateEvent(tx));
-        this.unityInstance.SendMessage("[WalletManager]", "SetState", JSON.stringify(state));
-    };
-
-    castSpell = async (playerAddress, index, wordCount) =>
-    {
-        console.log("WB.castSpell");
-
-        this.unityInstance.SendMessage("[WalletManager]", "ShowLoadingScreen");
-        
-        const abi = AbiRegistry.Core;
-        const value = Web3.utils.toWei((0.001 * wordCount).toString());
-        const contract = new this.web3.eth.Contract(abi, this.CoreContract);
-        const tx = await contract.methods.castSpell(index).send({from: playerAddress, value: value});
-        const buffs = this.buffsParser.parse(this.eventLookup.buffsEvent(tx));
-        this.unityInstance.SendMessage("[WalletManager]", "BuffsLoaded", JSON.stringify({Buffs: buffs}));
-
-        this.unityInstance.SendMessage("[WalletManager]", "HideLoadingScreen");
     };
 
     conductFight = async (playerAddress) =>

@@ -3,9 +3,22 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Enchanters by KotoБaza</title>
+    <title>Purrnelope's Fantasy Kingdom by KotoБaza</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+    <style>
+      #unity-container {
+        aspect-ratio: 16 / 9;
+        width: 100%;
+        max-width: 1920px;
+      }
+
+      #unity-container canvas {
+        aspect-ratio: 16 / 9;
+        width: 100% !important;
+        max-width: 1920px;
+      }
+    </style>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -28,14 +41,14 @@
     <script src="./js/web3/web3.min.js"></script>
     <script>
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/Enchanters.loader.js";
+      var loaderUrl = buildUrl + "/PFK.loader.js";
       var config = {
-        dataUrl: buildUrl + "/Enchanters.data",
-        frameworkUrl: buildUrl + "/Enchanters.framework.js",
-        codeUrl: buildUrl + "/Enchanters.wasm",
+        dataUrl: buildUrl + "/PFK.data",
+        frameworkUrl: buildUrl + "/PFK.framework.js",
+        codeUrl: buildUrl + "/PFK.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "KotoBaza",
-        productName: "Enchanters",
+        productName: "Purrnelope's Fantasy Kingdom",
         productVersion: "0.0.1",
       };
 

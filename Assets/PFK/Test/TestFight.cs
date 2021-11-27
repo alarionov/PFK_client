@@ -20,8 +20,6 @@ namespace PFK.Test
                     Seed = GenerateRandomSeed(64*4),
                     Score = 1,
                     Stats = new BaseStats(){ Attack = 1, Health = 3, Armour = 1},
-                    OldState = new BaseState(){ level = 0 },
-                    NewState = new BaseState(){ level = _level },  
                     Buffs = new[]{false, false, false, false, false, false, false, false},
                     Victory = true,
                     Died = false,

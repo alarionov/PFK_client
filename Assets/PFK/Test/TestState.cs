@@ -9,7 +9,7 @@ namespace PFK.Test
         [ContextMenu("Set Level")]
         private void SetLevel()
         {
-            PlayerState.GetInstance().LoadState(JsonUtility.ToJson(new BaseState(){level = _level}));
+            Debug.LogWarning("Nothing happend");
         }
     }
 }

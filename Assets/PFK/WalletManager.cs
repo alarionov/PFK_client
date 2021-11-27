@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 using PFK.Acts.SceneRegistry;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using WordBearers.Leaderboard;
 
 namespace PFK
 {
@@ -24,8 +23,7 @@ namespace PFK
         [SerializeField] private GameObject _loadingScreen;
         [SerializeField] private GameObject _noWalletMessage;
 
-        [SerializeField] private string _profileScene;
-        [SerializeField] private string _registerScene;
+        [SerializeField] private string _characterSelectScene;
         
         [SerializeField] private SceneRegistry _fightScenes;
         
@@ -76,35 +74,9 @@ namespace PFK
             }
             
             _state.Wallet = wallet;
-
-            jsGetState(_state.Wallet);
-        }
-
-        public void SetState(string encodedState)
-        {
-            UpdateState(encodedState);
-            SceneManager.LoadScene(_state.State.tokenId > 0 ? _profileScene : _registerScene, LoadSceneMode.Single);
-        }
-
-        public void SetState(BaseState state)
-        {
-            UpdateState(state);
-            SceneManager.LoadScene(_state.State.tokenId > 0 ? _profileScene : _registerScene, LoadSceneMode.Single);
-        }
-
-        public void UpdateState(string encodedState)
-        {
-            _state.LoadState(encodedState);
-        }
-
-        public void UpdateState(BaseState state)
-        {
-            _state.LoadState(state);
-        }
-
-        public void BuffsLoaded(string encodedBuffs)
-        {
-            _state.LoadBuffs(encodedBuffs);
+			AsyncOperation asyncLoad = 
+				SceneManager.LoadSceneAsync(
+					_characterSelectScene, LoadSceneMode.Single);
         }
 
         public void CharacterLoaded(string encoded)
@@ -115,11 +87,6 @@ namespace PFK
         public void NewStatsLoaded(string encoded)
         {
             _state.UpdateStats(encoded);
-        }
-
-        public void LeaderboardLoaded(string encoded)
-        {
-            Stats.LoadStats(encoded);
         }
 
         public void FightScene(FightWrapper fight)

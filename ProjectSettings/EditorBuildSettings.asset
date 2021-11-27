@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/PFK/GameMenu/Login/Scene.unity
+    guid: 708a76e8756b34715929416c481259f8
+  - enabled: 1
+    path: Assets/PFK/GameMenu/CharacterSelect/Scene.unity
+    guid: d13c589aff44149c8b69e53dc2b95aad
+  - enabled: 1
     path: Assets/PFK/Acts/Act001/Act1.unity
     guid: 25c84e3e574c84f4c96981dac4e4a1d4
   - enabled: 1

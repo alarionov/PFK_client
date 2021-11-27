@@ -14,38 +14,16 @@ namespace PFK
 
         public string Wallet { get; set; }
 
-        public BaseState State { get; private set; }
-        public bool[] Buffs { get; private set; }
-
         public Character Character { get; private set; }
 
         public static PlayerState GetInstance()
         {
             if (_instance is null)
             {
-                _instance = new PlayerState(){ State = new BaseState() };
+                _instance = new PlayerState(){};
             }
 
             return _instance;
-        }
-
-        public void LoadState(string encodedState)
-        {
-            LoadState(JsonUtility.FromJson<BaseState>(encodedState));
-        }
-        
-        public void LoadState(BaseState state)
-        {
-            State = state;
-            OnChange?.Invoke(this);
-            OnBaseStateChange?.Invoke(this);
-        }
-
-        public void LoadBuffs(string encodedBuffs)
-        {
-            //Buffs = JsonUtility.FromJson<BuffWrapper>(encodedBuffs).Buffs;
-            OnChange?.Invoke(this);
-            OnBuffsChange?.Invoke(this);
         }
 
         public void LoadCharacter(string encodedData)
