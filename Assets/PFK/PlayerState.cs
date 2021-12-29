@@ -16,6 +16,8 @@ namespace PFK
 
         public Character Character { get; private set; }
 
+        public int Progress;
+
         public static PlayerState GetInstance()
         {
             if (_instance is null)

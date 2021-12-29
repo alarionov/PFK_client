@@ -44,7 +44,7 @@ namespace PFK
 
         private void Start()
         {
-            Fight fight = Fight.Instance;
+            Fight.Fight fight = Fight.Fight.Instance;
             _seedReader = new SeedReader(fight.FightParams.Seed);
 
             BaseStats baseStats = fight.FightParams.Stats;
@@ -230,7 +230,7 @@ namespace PFK
                 yield return new WaitForSeconds(2);
             }
 
-            FightParams fightParams = Fight.Instance.FightParams;
+            Fight.FightParams fightParams = Fight.Fight.Instance.FightParams;
 
             if (fightParams.LevelUps.Length > 0)
             {

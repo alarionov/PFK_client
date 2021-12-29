@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entries:
   - Title: Act 1 Storyline
-    ContractAddress: 0x01
+    ContractAddress: 0xEE24546dDdd3922459597F8F44F835BDb6f5FB2f
     DirectoryPrefix: PFK/Acts/Act001/007_Fights
     Scenes:
     - 001_Milestone_1/Scene
@@ -25,7 +25,7 @@ MonoBehaviour:
     - 006_Milestone_6/Scene
     - 007_Milestone_7/Scene
   - Title: Act 1 SideQuests
-    ContractAddress: 0x02
+    ContractAddress: 0x04385F375EF1D252A318B3D5EB296e6CC43bF23e
     DirectoryPrefix: PFK/Acts/Act001/007_Fights
     Scenes:
     - 011_SideQuest_1/Scene

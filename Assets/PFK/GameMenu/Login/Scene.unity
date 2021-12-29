@@ -267,6 +267,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4632399642049192477, guid: 0541401cb23ce47769a3a85b44c2f66b,
         type: 3}
+      propertyPath: _Act1Scene
+      value: PFK/Acts/Act001/Act1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632399642049192477, guid: 0541401cb23ce47769a3a85b44c2f66b,
+        type: 3}
       propertyPath: _fightScenes
       value: 
       objectReference: {fileID: 11400000, guid: db5b4e56e2c0f4280aea721c8483cc80,

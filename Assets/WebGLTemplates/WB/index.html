@@ -7,16 +7,19 @@
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <style>
+      body { background: #333; }
+      
       #unity-container {
-        aspect-ratio: 16 / 9;
-        width: 100%;
-        max-width: 1920px;
-      }
-
-      #unity-container canvas {
         aspect-ratio: 16 / 9;
         width: 100% !important;
         max-width: 1920px;
+      }
+
+      #unity-container canvas#unity-canvas {
+        aspect-ratio: 16 / 9;
+        width: 100% !important;
+        max-width: 1920px;
+        height: auto !important;
       }
     </style>
   </head>

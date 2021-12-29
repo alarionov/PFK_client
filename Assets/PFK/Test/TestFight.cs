@@ -11,11 +11,11 @@ namespace PFK.Test
         
         public void LoadFight()
         {
-            FightWrapper wrapper = new FightWrapper()
+            Fight.FightWrapper wrapper = new Fight.FightWrapper()
             {
                 ContractAddress = _contractAddress,
                 SceneIndex = _index,
-                FightParams = new FightParams()
+                FightParams = new Fight.FightParams()
                 {
                     Seed = GenerateRandomSeed(64*4),
                     Score = 1,

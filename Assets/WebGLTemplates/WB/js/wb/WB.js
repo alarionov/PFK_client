@@ -14,24 +14,9 @@ class WB
         {
             throw "Unity Instance is not defined";
         }
-
-        console.log("testing contract registry");
-        console.log(ContractRegistry.AuthContract);
         
         this.blockSize = 64;
         this.unityInstance = unityInstance;
-        this.CONTRACT_ADDRESSES = {
-            "AuthContract": "",
-            "RandomContract": "0xE3659A17D1eeec8E9f24BcBC76d3C1fd48Ab4880",
-            "CharacterContract": "0xB152dD6fa4D2e4a86C385a3217Afb866B691374C",
-            "FightContract": "0x3AF816A2cE5aCc8Fa1A918381B8375B372f3e783",
-            "FightManagerContract": "0xaEB6F6bC492025B4A0597E5a1a05c5094ce35ddc",
-            "EquipmentContract": "0x507eDC3528a83701F43C69c4F097EcfB394f8f4c",
-            "EquipmentManagerContract": "0x2bCF7c3EC331d8234D0a7C5E4D27A9f64b609a3a",
-            "Act1Milestones": "0x6b6992dD2C14FDb0b77A31641f4710c603B30022",
-            "Act1Sidequests": "0x2499aaa7DE00ca0Fb0Ea745aedD745Bec4e51b55"
-        };
-        
         this.stateParser = new StateParser(this.blockSize);
         this.characterParser = new CharacterParser(this.blockSize);
         this.fightParser = new FightParser(this.blockSize);
@@ -115,15 +100,28 @@ class WB
         this.unityInstance.SendMessage("[WalletManager]", "SetState", JSON.stringify(state));
     };
 
-    conductFight = async (playerAddress) =>
+    conductFight = async (playerAddress, mapContract, level, characterContract, tokenId)  =>
     {
-        const abi = AbiRegistry.Core;
         this.unityInstance.SendMessage("[WalletManager]", "ShowLoadingScreen");
-
-        const contract = new this.web3.eth.Contract(abi, this.CoreContract);
+        
+        const contract = 
+            new this.web3.eth.Contract(
+                ContractRegistry.FightManagerContract.abi,
+                ContractRegistry.FightManagerContract.address);
         
         try {
-            const tx = await contract.methods.conductFight().send({from: playerAddress});
+            console.log(playerAddress);
+            console.log(mapContract);
+            console.log(level);
+            console.log(characterContract);
+            console.log(tokenId);
+            
+            const tx = await contract.methods.conductFight(mapContract, level, characterContract, tokenId).send({from: playerAddress});
+            
+            console.log(tx);
+            
+            /*
+            
             const fight = this.fightParser.parse(this.eventLookup.fightEvent(tx));
             const buffs = this.buffsParser.parse(this.eventLookup.buffsEvent(tx));
             
@@ -140,7 +138,8 @@ class WB
             fight.LevelUps = levelups.sort((a,b) => a.Level < b.Level ? -1 : 1);
             
             this.unityInstance.SendMessage("[WalletManager]", "BuffsLoaded", JSON.stringify({ Buffs: buffs }));
-            this.unityInstance.SendMessage("[WalletManager]", "FightLoaded", JSON.stringify(fight));
+            this.unityInstance.SendMessage("[WalletManager]", "FightLoaded", JSON.stringify(fight));            
+             */
         } catch (e) {
             if (e.code === 4001)
             {
@@ -156,33 +155,67 @@ class WB
         }
     };
 
-    getCharacter = async (characterId) =>
+    getCharacter = async (contractAddress, characterId) =>
     {
         console.log("WB.getCharacter");
-
-        const abi = AbiRegistry.Character;
-
-        const contract = new this.web3.eth.Contract(abi, this.CharContract);
-        const response = await contract.methods.getCharacter(characterId).call();
-
+        
+        const contract = 
+            new this.web3.eth.Contract(
+                ContractRegistry.CharacterContract.abi, 
+                ContractRegistry.CharacterContract.address);
+        
+        const response = await contract.methods.getCharacter(contractAddress, characterId).call();
+        
+        const equipment = {
+            ArmorSetId: response.equipment.armorSetId,
+            WeaponSetId: response.equipment.weaponSetId,
+            ShieldId: response.equipment.shieldId,
+        };
+        
         const stats = {
+            Strength: response.stats.strength,
+            Dexterity: response.stats.dexterity,
+            Constitution: response.stats.constitution,
+            Luck: response.stats.luck,
+            Armor: response.stats.armor,
             Attack: response.stats.attack,
             Health: response.stats.health,
-            Armour: response.stats.armour,
+            TakenDamage: response.stats.takenDamage
         };
 
         const character = {
+            ContractAddress: contractAddress,
+            TokenId: characterId, 
+            Equipment: equipment,
             Stats: stats,
             Upgrades: response.upgrades,
             Exp: response.exp,
-            Alive: response.alive,
-            Level: response.level,
-            Exists: response.exists,
+            Level: response.level
         };
 
         this.unityInstance.SendMessage("[WalletManager]", "CharacterLoaded", JSON.stringify(character));
     };
 
+    getAct1Progress = async (contractAddress, characterId) => 
+    {
+        console.log("WB.getMapProgress");
+
+        const characterContract =
+            new this.web3.eth.Contract(
+                ContractRegistry.CharacterContract.abi,
+                ContractRegistry.CharacterContract.address);
+
+        const character = await characterContract.methods.getCharacter(contractAddress, characterId).call();
+        
+        const mapContract =
+            new this.web3.eth.Contract(
+                ContractRegistry.Act1Milestones.abi,
+                ContractRegistry.Act1Milestones.address);
+        
+        const progress = await mapContract.methods.getProgress(character).call();
+        this.unityInstance.SendMessage("[WalletManager]", "LoadAct1", parseInt(progress));
+    };
+        
     upgradeAttack = async (playerAddress, characterId) => {
         this.unityInstance.SendMessage("[WalletManager]", "ShowLoadingScreen");
         
@@ -224,30 +257,6 @@ class WB
 
         this.unityInstance.SendMessage("[WalletManager]", "NewStatsLoaded", JSON.stringify(character));
         this.unityInstance.SendMessage("[WalletManager]", "HideLoadingScreen");
-    };
-
-    getLeaderboard = async () =>
-    {
-        console.log("WB.getLeaderboard");
-
-        const abi = AbiRegistry.Core;
-
-        const contract = new this.web3.eth.Contract(abi, this.CoreContract);
-        const response = await contract.methods.getLeaderboard().call();
-
-        const records = [];
-        
-        for (let i = 0; i < response.length; ++i)
-        {
-            records.push({
-                Player: response[i].player,
-                Score: response[i].score
-            });    
-        }
-        
-        const leaderboard = { Records: records };
-        
-        this.unityInstance.SendMessage("[WalletManager]", "LeaderboardLoaded", JSON.stringify(leaderboard));
     };
 }
 

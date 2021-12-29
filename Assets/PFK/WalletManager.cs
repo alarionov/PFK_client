@@ -24,10 +24,9 @@ namespace PFK
         [SerializeField] private GameObject _noWalletMessage;
 
         [SerializeField] private string _characterSelectScene;
+        [SerializeField] private string _Act1Scene;
         
         [SerializeField] private SceneRegistry _fightScenes;
-        
-        private PlayerState _state;
 
         private void Awake()
         {
@@ -73,7 +72,8 @@ namespace PFK
                 return;
             }
             
-            _state.Wallet = wallet;
+            PlayerState.GetInstance().Wallet = wallet;
+            
 			AsyncOperation asyncLoad = 
 				SceneManager.LoadSceneAsync(
 					_characterSelectScene, LoadSceneMode.Single);
@@ -81,22 +81,30 @@ namespace PFK
 
         public void CharacterLoaded(string encoded)
         {
-            _state.LoadCharacter(encoded);
+            PlayerState.GetInstance().LoadCharacter(encoded);
+        }
+
+        public void LoadAct1(int progress)
+        {
+            if (progress is < 0 or > 7) return;
+            
+            PlayerState.GetInstance().Progress = progress;
+            SceneManager.LoadScene(_Act1Scene);
         }
 
         public void NewStatsLoaded(string encoded)
         {
-            _state.UpdateStats(encoded);
+            PlayerState.GetInstance().UpdateStats(encoded);
         }
 
-        public void FightScene(FightWrapper fight)
+        public void FightScene(Fight.FightWrapper fight)
         {
             StartCoroutine(LoadAndFight(fight));
         }
 
-        private IEnumerator LoadAndFight(FightWrapper fight)
+        private IEnumerator LoadAndFight(Fight.FightWrapper fight)
         {
-            Fight.NewFight(fight.FightParams);
+            Fight.Fight.NewFight(fight.FightParams);
             
             ShowLoadingScreen();
             yield return new WaitForSeconds(1);

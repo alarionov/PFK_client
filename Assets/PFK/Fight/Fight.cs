@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PFK
+namespace PFK.Fight
 {
     public class Fight
     {

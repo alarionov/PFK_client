@@ -9,6 +9,8 @@
 /Assets/Mixamo/*
 /Screenshots/*
 
+**/._.DS_Store
+
 # Visual Studio 2015 cache directory
 /.vs/
 .gradle

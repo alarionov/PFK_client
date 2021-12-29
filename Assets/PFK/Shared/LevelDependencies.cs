@@ -31,7 +31,7 @@ namespace PFK.Shared
 
         private void CheckLevelDependencies(PlayerState state)
         {
-            if (Satisfied(1))
+            if (Satisfied(state.Progress))
             {
                 WhenSatisfied();
             }

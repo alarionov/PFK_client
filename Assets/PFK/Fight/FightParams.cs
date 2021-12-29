@@ -1,4 +1,4 @@
-namespace PFK
+namespace PFK.Fight
 {
     [System.Serializable]
     public class FightParams

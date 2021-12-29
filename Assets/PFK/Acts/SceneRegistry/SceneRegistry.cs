@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace PFK.Acts.SceneRegistry
@@ -6,6 +7,11 @@ namespace PFK.Acts.SceneRegistry
     public class SceneRegistry : ScriptableObject
     {
         [SerializeField] private Entry[] _entries;
+
+        public Entry GetEntryByTitle(string title)
+        {
+            return _entries.First(_ => _.Title == title);
+        }
 
         public string GetScene(string contractAddress, int index)
         {
