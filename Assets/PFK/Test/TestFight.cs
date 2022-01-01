@@ -18,11 +18,8 @@ namespace PFK.Test
                 FightParams = new Fight.FightParams()
                 {
                     Seed = GenerateRandomSeed(64*4),
-                    Score = 1,
-                    Stats = new BaseStats(){ Attack = 1, Health = 3, Armour = 1},
-                    Buffs = new[]{false, false, false, false, false, false, false, false},
+                    Character = new BaseStats(){ Attack = 1, Health = 3, Armour = 1},
                     Victory = true,
-                    Died = false,
                     LevelUps = new LevelUp[]{}
                 }
             };

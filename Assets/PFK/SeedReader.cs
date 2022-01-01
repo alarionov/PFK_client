@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace PFK
 {
     public class SeedReader
@@ -9,6 +7,11 @@ namespace PFK
         
         public SeedReader(string hexString)
         {
+            if (hexString.StartsWith("0x"))
+            {
+                hexString = hexString.Substring(2);
+            }
+
             if (hexString.Length % 2 != 0)
             {
                 throw new System.Exception("Odd length of the seed hex string");

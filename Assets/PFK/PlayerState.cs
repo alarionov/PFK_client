@@ -6,8 +6,6 @@ namespace PFK
     {
         public static event System.Action<PlayerState> OnChange;
         public static event System.Action<PlayerState> OnBaseStateChange;
-        public static event System.Action<PlayerState> OnBuffsChange;
-        
         public static event System.Action<PlayerState> OnCharacterChange;
 
         private static PlayerState _instance;

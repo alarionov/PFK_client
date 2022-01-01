@@ -26,8 +26,6 @@ namespace PFK
         public int AttackerID;
         public int VictimID;
         public int Damage;
-        public bool Vampirism;
-        public bool Reflect;
     }
 
     public class FightManager : MonoBehaviour
@@ -40,70 +38,54 @@ namespace PFK
         
         private SeedReader _seedReader;
 
-        private readonly Queue<FightAction> _fightQueue = new Queue<FightAction>();
-
         private void Start()
         {
             Fight.Fight fight = Fight.Fight.Instance;
+
             _seedReader = new SeedReader(fight.FightParams.Seed);
 
-            BaseStats baseStats = fight.FightParams.Stats;
-            bool[] playerBuffs = fight.FightParams.Buffs;
-
-            EnemyUnit[] skeletons = new EnemyUnit[_enemyUnits.Length];
-
+            EnemyUnit[] enemies = new EnemyUnit[_enemyUnits.Length];
             for (int i = 0; i < _enemyUnits.Length; ++i)
             {
-                skeletons[i] = new EnemyUnit()
+                _enemyUnits[i].UpdateStats(fight.FightParams.Enemies[i]);
+                
+                enemies[i] = new EnemyUnit()
                 {
                     Index = i, 
-                    Stats = _enemyUnits[i].BaseStats
+                    Stats = fight.FightParams.Enemies[i]
                 };
             }
-
-            BaseStats.ApplyBuffs(baseStats, playerBuffs);
             
-            _player.UpdateStats(baseStats);
+            _player.UpdateStats(fight.FightParams.Character);
 
-            QueueAllAttacks(baseStats, skeletons, playerBuffs);
+            QueueAllAttacks(fight.FightParams.Character, enemies);
             
             StartCoroutine(FightCoroutine());
         }
 
-        private void QueueAllAttacks(BaseStats baseStats, EnemyUnit[] skeletons, bool[] playerBuffs)
-        {
-            bool[] skeletonBuffs = new bool[playerBuffs.Length];
+        private readonly Queue<FightAction> _fightQueue = new();
 
-            #if UNITY_WEBGL && !UNITY_EDITOR
-                jsPrintString($"Player stats: { baseStats.Attack } - { baseStats.Health } - { baseStats.Armour }");
-                jsPrintString($"Number of skeletons: { skeletons.Length }");
-            #endif
-            
+        private void QueueAllAttacks(BaseStats player, EnemyUnit[] enemies)
+        {
             for (int i = 0; i < 10; ++i)
             {
-                int index = _seedReader.Roll((byte)skeletons.Length);
-                EnemyUnit target = skeletons[index];
+                int index = _seedReader.Roll((byte)enemies.Length);
+                EnemyUnit target = enemies[index];
                 
-                EnqueueAttack(-1, baseStats, playerBuffs,
-                    target.Index, target.Stats, skeletonBuffs);
+                EnqueueAttack(-1, player, target.Index, target.Stats);
                 
-                skeletons = RecountSkeletons(skeletons);
-                
-                #if UNITY_WEBGL && !UNITY_EDITOR
-                    jsPrintString($"Number of skeletons: { skeletons.Length }");
-                #endif
+                enemies = RecountSkeletons(enemies);
 
-                foreach (EnemyUnit attacker in skeletons)
+                foreach (EnemyUnit attacker in enemies)
                 {
-                    EnqueueAttack(attacker.Index, attacker.Stats, skeletonBuffs,
-                        -1, baseStats, playerBuffs);
+                    EnqueueAttack(attacker.Index, attacker.Stats, -1, player);
 
-                    if (baseStats.Health <= 0) return;
+                    if (player.Health <= 0) return;
                 }
 
-                skeletons = RecountSkeletons(skeletons);
+                enemies = RecountSkeletons(enemies);
                 
-                if (skeletons.Length == 0) return;
+                if (enemies.Length == 0) return;
             }
         }
 
@@ -116,55 +98,59 @@ namespace PFK
         {
             return new EnemyUnit[0];
         }
-
-        private void EnqueueAttack(int attackerID, BaseStats attacker, bool[] buffsAttacker,
-            int victimID, BaseStats victim, bool[] buffsVictim)
+        
+        private int CalculateChance(int b, int bonus, int from, int to)
         {
-            FightAction action = new FightAction()
+            int top = from - to;
+            int bottom = from + to;
+        
+            if (bottom == 0) return b;
+        
+            int chance = b + bonus * top / bottom;
+        
+            if (chance < 0) chance = 0;
+        
+            return chance;
+        }
+
+        private int GetCritChance(BaseStats target, BaseStats attacker)
+        {
+            return CalculateChance(32, 96, attacker.Luck, target.Luck);
+        }
+        
+        private int GetHitChance(BaseStats target, BaseStats attacker)
+        {
+            return CalculateChance(64, 64, attacker.Dexterity, target.Dexterity);
+        }
+
+        private void EnqueueAttack(int attackerID, BaseStats attacker, int victimID, BaseStats victim)
+        {
+            FightAction action = new()
             {
                 AttackerID = attackerID,
                 VictimID = victimID
             };
 
-            #if UNITY_WEBGL && !UNITY_EDITOR
-                jsPrintString($"Actual Attack form {attackerID} to {victimID}");
-                jsPrintString($"{attacker.Attack} {attacker.Health} {attacker.Armour}");
-                jsPrintString($"{victim.Attack} {victim.Health} {victim.Armour}");
-            #endif
-            
             int damage = attacker.Attack;
 
-            int hit = _seedReader.Roll(2);
-            int crit = _seedReader.Roll(2);
-            
-            if (buffsAttacker[(int) SpellType.CriticalStrike])
-                crit = 1;
+            int hitChance = GetHitChance(victim, attacker);
+            int hitRoll = _seedReader.Roll(128);
+            bool hit = hitRoll < hitChance;
 
-            if (hit > 0)
+            int critChance = GetCritChance(victim, attacker);
+            int critRoll = _seedReader.Roll(128); 
+            bool crit = critRoll < critChance;
+
+            if (hit)
             {
                 action.Type = AttackType.Hit;
 
-                if (crit > 0)
+                if (crit)
                     action.Type = AttackType.Crit;
                 else 
-                    damage -= victim.Armour;
+                    damage = Mathf.Clamp(damage - victim.Armour, 0, damage);
                 
-                if (damage > 0)
-                {
-                    victim.Health -= damage;
-
-                    if (crit > 0 && buffsAttacker[(int) SpellType.Vampirism])
-                    {
-                        action.Vampirism = true;
-                        attacker.Health += 1;
-                    }
-
-                    if (buffsVictim[(int) SpellType.Reflect])
-                    {
-                        action.Reflect = true;
-                        attacker.Health -= 1;
-                    }
-                }
+                victim.Health -= damage;
             }
             else
             {
@@ -172,69 +158,36 @@ namespace PFK
                 action.Type = AttackType.Miss;
             }
 
-            action.Damage = Mathf.Clamp(damage, 0, damage);
+            action.Damage = damage; 
             
-            #if UNITY_WEBGL && !UNITY_EDITOR
-                jsPrintString($"{action.Type} {action.Damage}");
-                jsPrintString($"{attacker.Attack} {attacker.Health} {attacker.Armour}");
-                jsPrintString($"{victim.Attack} {victim.Health} {victim.Armour}");
-            #endif            
-
             _fightQueue.Enqueue(action);   
         }
 
         private IEnumerator FightCoroutine()
         {
-            #if UNITY_WEBGL && !UNITY_EDITOR
-                jsPrintString("==== FIGHT ====");
-            #endif
-            
             yield return new WaitForSeconds(1);
 
             while (_fightQueue.Count > 0)
             {
                 FightAction action = _fightQueue.Dequeue();
-
-                for (int i = 0; i < _enemyUnits.Length; ++i)
-                {
-                    CharacterView charComponent = 
-                        _enemyUnits[i].GetComponent<CharacterView>();
-                }
-
-                #if UNITY_WEBGL && !UNITY_EDITOR
-                    jsPrintString($"A: {action.AttackerID} V: {action.VictimID}  Type: {action.Type} D: {action.Damage} V: {action.Vampirism} R: {action.Reflect}");
-                #endif                
-
+                
                 CharacterView attackerComponent = 
-                    action.AttackerID == -1 ? 
-                        _player : _enemyUnits[(int) action.AttackerID];
+                    action.AttackerID == -1 ? _player : _enemyUnits[action.AttackerID];
                 
                 CharacterView victimComponent =
-                    action.VictimID == -1 ?
-                        _player : _enemyUnits[(int) action.VictimID];
+                    action.VictimID == -1 ? _player : _enemyUnits[action.VictimID];
                 
                 attackerComponent.ShowAttack();
                 victimComponent.ShowDamage(action);
 
                 yield return new WaitForSeconds(1);
-                
-                if (action.Vampirism) attackerComponent.ShowVampirism();
-                
-                if (action.Reflect)
-                {
-                    yield return new WaitForSeconds(1);
-                    attackerComponent.ShowDamage(1);
-                    victimComponent.ShowReflect();
-                }
-                
-                yield return new WaitForSeconds(2);
             }
 
             Fight.FightParams fightParams = Fight.Fight.Instance.FightParams;
 
             if (fightParams.LevelUps.Length > 0)
             {
-                LevelUp levelUp = fightParams.LevelUps[fightParams.LevelUps.Length - 1];
+                LevelUp levelUp = fightParams.LevelUps[^1];
 
                 PlayerState.GetInstance().Character.Level = levelUp.Level;
                 PlayerState.GetInstance().Character.Exp = levelUp.Exp;

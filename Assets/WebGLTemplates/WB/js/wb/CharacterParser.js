@@ -18,6 +18,20 @@ class CharacterParser extends Parser {
 
         return character;
     };
+    
+    getStatsFromJson = (json) =>
+    {
+        const stats = {
+            Strength: parseInt(json.strength),
+            Dexterity: parseInt(json.dexterity),
+            Constitution: parseInt(json.constitution),
+            Luck: parseInt(json.luck),
+            Armour: parseInt(json.armor),
+            Attack: parseInt(json.attack),
+            Health: parseInt(json.health)
+        }
+        return stats;
+    };
 }
 
 export default CharacterParser;

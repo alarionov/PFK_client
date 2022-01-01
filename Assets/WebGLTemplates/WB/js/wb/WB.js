@@ -23,7 +23,7 @@ class WB
         this.newStatsParser = new NewStatsParser(this.blockSize);
         this.levelUpParser = new LevelUpParser(this.blockSize);
         
-        //this.eventLookup = new EventLookup(this.CoreContract, this.CharContract, this.FightLogicContract, this.FightContract);
+        this.eventLookup = new EventLookup(new Web3(), ContractRegistry);
     }
 
     /*
@@ -110,21 +110,33 @@ class WB
                 ContractRegistry.FightManagerContract.address);
         
         try {
-            console.log(playerAddress);
-            console.log(mapContract);
-            console.log(level);
-            console.log(characterContract);
-            console.log(tokenId);
-            
             const tx = await contract.methods.conductFight(mapContract, level, characterContract, tokenId).send({from: playerAddress});
             
-            console.log(tx);
+            const events = this.eventLookup.parse(tx.events);
             
-            /*
+            const fight = events[0].fight;
             
-            const fight = this.fightParser.parse(this.eventLookup.fightEvent(tx));
-            const buffs = this.buffsParser.parse(this.eventLookup.buffsEvent(tx));
+            console.log(fight);
             
+            const fightWrapper = {
+                ContractAddress: mapContract,
+                SceneIndex: level,
+                FightParams: {
+                    Id: parseInt(fight.id),
+                    Seed: fight.seed,
+                    Victory: fight.victory,
+                    Character: this.characterParser.getStatsFromJson(fight.character), 
+                    Enemies: fight.enemies.map(_ => this.characterParser.getStatsFromJson(_)),
+                    Exp: parseInt(fight.exp)
+                    //public LevelUp[] LevelUps;
+                }
+            };
+            
+            console.log(fightWrapper);
+
+            this.unityInstance.SendMessage("[WalletManager]", "LoadFight", JSON.stringify(fightWrapper));
+            
+            /*            
             console.log("Level Up events:", this.eventLookup.levelUpEvents(tx));
             
             const levelups = [];
@@ -135,12 +147,14 @@ class WB
                 levelups.push(this.levelUpParser.parse(levelUpEvents[i]));
             }
             
-            fight.LevelUps = levelups.sort((a,b) => a.Level < b.Level ? -1 : 1);
+            fight.LevelUps = levelups.sort((a,b) => a.Level < b.Level ? -1 : 1);                    
+            */
             
-            this.unityInstance.SendMessage("[WalletManager]", "BuffsLoaded", JSON.stringify({ Buffs: buffs }));
-            this.unityInstance.SendMessage("[WalletManager]", "FightLoaded", JSON.stringify(fight));            
-             */
-        } catch (e) {
+        } 
+        catch (e) 
+        {
+            this.unityInstance.SendMessage("[WalletManager]", "HideLoadingScreen");
+            
             if (e.code === 4001)
             {
                 console.log("User rejected the transaction");
@@ -149,9 +163,6 @@ class WB
             {
                 throw e;
             }
-        }
-        finally {
-            this.unityInstance.SendMessage("[WalletManager]", "HideLoadingScreen");
         }
     };
 

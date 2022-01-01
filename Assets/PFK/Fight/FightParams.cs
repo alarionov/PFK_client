@@ -4,13 +4,11 @@ namespace PFK.Fight
     public class FightParams
     {
         public int Id;
-        public int Season;
         public string Seed;
-        public int Score;
-        public BaseStats Stats;
-        public bool[] Buffs;
+        public BaseStats Character;
+        public BaseStats[] Enemies;
         public bool Victory;
-        public bool Died;
+        public int Exp;
         public LevelUp[] LevelUps;
     }
 }

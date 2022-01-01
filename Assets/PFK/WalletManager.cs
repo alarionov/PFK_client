@@ -97,6 +97,12 @@ namespace PFK
             PlayerState.GetInstance().UpdateStats(encoded);
         }
 
+        public void LoadFight(string encoded)
+        {
+            Fight.FightWrapper wrapper = JsonUtility.FromJson<Fight.FightWrapper>(encoded);
+            FightScene(wrapper);
+        }
+
         public void FightScene(Fight.FightWrapper fight)
         {
             StartCoroutine(LoadAndFight(fight));
