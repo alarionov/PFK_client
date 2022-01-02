@@ -60,6 +60,13 @@ class WB
 
             const account = accounts[0];
             this.unityInstance.SendMessage("[WalletManager]", "SetWallet", account);
+
+            const blockUpdate = async (block) => 
+            {
+                this.unityInstance.SendMessage("[BlockExplorer]", "SetCurrentBlock", block.number);
+            };
+
+            this.web3.eth.subscribe('newBlockHeaders').on("data", blockUpdate.bind(this));
         }
         catch (e)
         {
@@ -114,9 +121,29 @@ class WB
             
             const events = this.eventLookup.parse(tx.events);
             
-            const fight = events[0].fight;
+            console.log(events);
             
-            console.log(fight);
+            let fight;
+            
+            for (const event of events)
+            {
+                switch (event.name)
+                {
+                    case "FightDetails":
+                        fight = event.fight;
+                        break;
+                    case "Milestone":
+                        this.unityInstance.SendMessage("[StorylineProgress]", "SetProgress", parseInt(event.index));
+                        break;
+                    case "Cooldown":
+                        const params = JSON.stringify({ index: level, blockNumber: parseInt(event.activeAfter) });
+                        this.unityInstance.SendMessage("[SideQuestManager]", "SetQuestCooldown", params);
+                        break;
+                    default:
+                        console.log("Event:");
+                        console.log(event);
+                }
+            }
             
             const fightWrapper = {
                 ContractAddress: mapContract,
@@ -226,6 +253,33 @@ class WB
         const progress = await mapContract.methods.getProgress(character).call();
         this.unityInstance.SendMessage("[WalletManager]", "LoadAct1", parseInt(progress));
     };
+
+    getAct1SidequestCooldowns = async (contractAddress, characterId) =>
+    {
+        console.log("WB.getSideQuestCooldowns");
+
+        const characterContract =
+            new this.web3.eth.Contract(
+                ContractRegistry.CharacterContract.abi,
+                ContractRegistry.CharacterContract.address);
+
+        const character = await characterContract.methods.getCharacter(contractAddress, characterId).call();
+
+        const mapContract =
+            new this.web3.eth.Contract(
+                ContractRegistry.Act1Sidequests.abi,
+                ContractRegistry.Act1Sidequests.address);
+
+        const cooldowns = await mapContract.methods.getCooldowns(character).call();
+        
+        for (let i=0; i < cooldowns.length; ++i)
+        {
+            this.unityInstance.SendMessage(
+                "[SideQuestManager]", 
+                "SetQuestCooldown", 
+                JSON.stringify({index: i, blockNumber: parseInt(cooldowns[i])}));
+        }
+    };
         
     upgradeAttack = async (playerAddress, characterId) => {
         this.unityInstance.SendMessage("[WalletManager]", "ShowLoadingScreen");
@@ -268,6 +322,33 @@ class WB
 
         this.unityInstance.SendMessage("[WalletManager]", "NewStatsLoaded", JSON.stringify(character));
         this.unityInstance.SendMessage("[WalletManager]", "HideLoadingScreen");
+    };
+    
+    resetProgress = async (playerAddress, contractAddress, characterId) =>
+    {
+        const characterContract =
+            new this.web3.eth.Contract(
+                ContractRegistry.CharacterContract.abi,
+                ContractRegistry.CharacterContract.address);
+
+        const character = await characterContract.methods.getCharacter(contractAddress, characterId).call();
+
+        const mapContract =
+            new this.web3.eth.Contract(
+                ContractRegistry.Act1Milestones.abi,
+                ContractRegistry.Act1Milestones.address);
+
+        mapContract.methods.resetProgress(character).send({from: playerAddress});
+    };
+    
+    setCooldowns = async () => {
+        const addr = "0x8229d792c1BCCdb9Cc336821502aC906005317a6";
+        const mapContract =
+            new this.web3.eth.Contract(
+                ContractRegistry.Act1Sidequests.abi,
+                ContractRegistry.Act1Sidequests.address);
+        
+        mapContract.methods.setCooldowns([10,20,30,40,50,60]).send({from: addr});
     };
 }
 

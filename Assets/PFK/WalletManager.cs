@@ -13,9 +13,6 @@ namespace PFK
         
         [DllImport("__Internal")]
         private static extern void jsConnectWallet();
-
-        [DllImport("__Internal")]
-        private static extern void jsGetState(string address);
         
         [DllImport("__Internal")]
         private static extern void jsPrintString(string str);
@@ -57,12 +54,8 @@ namespace PFK
         /* Called from html */
 
         public void ShowNoWalletError() => _noWalletMessage.SetActive(true);
-
-
         public void HideNoWalletError() => _noWalletMessage.SetActive(false);
-        
         public void ShowLoadingScreen() => _loadingScreen.SetActive(true);
-
         public void HideLoadingScreen() => _loadingScreen.SetActive(false);
 
         public void SetWallet(string wallet)

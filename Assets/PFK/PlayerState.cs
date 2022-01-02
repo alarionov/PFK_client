@@ -41,5 +41,12 @@ namespace PFK
             OnChange?.Invoke(this);
             OnCharacterChange?.Invoke(this);
         }
+
+        public void UpdateProgress(int index)
+        {
+            Progress = index;
+            OnChange?.Invoke(this);
+            OnBaseStateChange?.Invoke(this);
+        }
     }
 }

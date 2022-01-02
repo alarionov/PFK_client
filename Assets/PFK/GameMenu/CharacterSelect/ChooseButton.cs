@@ -11,10 +11,15 @@ namespace PFK.GameMenu.CharacterSelect
         [DllImport("__Internal")]
         private static extern void jsGetAct1Progress(string address, int token);
 
+        [DllImport("__Internal")]
+        private static extern void jsGetAct1SidequestCooldowns(string address, int token);
+        
         public void Choose(int token)
         {
-            jsGetCharacter("0x14532E037b0e63A8882C6887351AB135CAAE4D0D", token);
-            jsGetAct1Progress("0x14532E037b0e63A8882C6887351AB135CAAE4D0D", token);
+            string purrContract = "0x4e0bA77E4Bb93ACa2B5D219A5CE896F144F81f55";
+            jsGetCharacter(purrContract, token);
+            jsGetAct1Progress(purrContract, token);
+            jsGetAct1SidequestCooldowns(purrContract, token);
         }
     }    
 }
