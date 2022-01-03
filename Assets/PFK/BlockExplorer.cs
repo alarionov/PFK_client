@@ -1,13 +1,9 @@
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace PFK
 {
     public class BlockExplorer : MonoBehaviour
     {
-        [DllImport("__Internal")]
-        private static extern void jsPrintString(string str);
-        
         public event System.Action<int> OnBlockChange;
 
         [SerializeField] private int _secondsPerBlock = 1;

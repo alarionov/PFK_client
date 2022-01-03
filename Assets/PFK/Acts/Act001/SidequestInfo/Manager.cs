@@ -1,17 +1,20 @@
-using System.Runtime.InteropServices;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace PFK.Acts.Act001.SidequestInfo
 {
     public class Manager : MonoBehaviour
     {
-        [DllImport("__Internal")]
-        private static extern void jsPrintString(string str);
-        
+        private class Quest
+        {
+            public int Index;
+            public QuestElement Element;
+        }
+
         [SerializeField] private BlockExplorer _explorer;
         
-        private readonly Quest[] _quests = new Quest[6];
-        private readonly int[] _activeAfter = new int[6];
+        private readonly List<Quest> _questElements = new ();
+        private readonly int[] _cooldowns = new int[6];
 
         [System.Serializable]
         public class Params
@@ -25,39 +28,44 @@ namespace PFK.Acts.Act001.SidequestInfo
             _explorer.OnBlockChange += OnBlockChange;
         }
 
-        private void OnBlockChange(int blockNumnber)
+        private void OnBlockChange(int blockNumber)
         {
-            for (int i = 0; i < _quests.Length; ++i)
+            foreach (Quest quest in _questElements)
             {
-                if (_quests[i] is null) continue;
-                
-                UpdateQuestCooldown(_quests[i], _activeAfter[i]);
+                UpdateQuestCooldown(quest.Element, _cooldowns[quest.Index]);
             }
         }
         
-        public void Register(int index, Quest details)
+        public void Register(int index, QuestElement element)
         {
-            _quests[index] = details;
+            _questElements.Add(new () {Index = index, Element = element});
             
-            UpdateQuestCooldown(details, _activeAfter[index]);
+            UpdateQuestCooldown(element, _cooldowns[index]);
         }
 
-        private void UpdateQuestCooldown(Quest quest, int activeAfter)
+        public void Deregister(QuestElement element)
         {
-            double cooldown = (double)(activeAfter - _explorer.CurrentBlock) * _explorer.SecondsPerBlock;
-            jsPrintString($"{activeAfter - _explorer.CurrentBlock} {_explorer.SecondsPerBlock} {cooldown}");
-            quest.SetCooldown(cooldown);
+            _questElements.RemoveAll(quest => quest.Element == element);
+        }
+
+        private void UpdateQuestCooldown(QuestElement element, int activeAfter)
+        {
+            int cooldown = (activeAfter - _explorer.CurrentBlock) * _explorer.SecondsPerBlock;
+            element.SetCooldown(cooldown);
         }
 
         public void SetQuestCooldown(string json)
         {
             Params cooldownParams = JsonUtility.FromJson<Params>(json);
 
-            _activeAfter[cooldownParams.index] = cooldownParams.blockNumber;
+            _cooldowns[cooldownParams.index] = cooldownParams.blockNumber;
 
-            if (_quests[cooldownParams.index] is null) return;
-            
-            UpdateQuestCooldown(_quests[cooldownParams.index], cooldownParams.blockNumber);
+            foreach (Quest quest in _questElements)
+            {
+                if (quest.Index != cooldownParams.index) continue;
+                
+                UpdateQuestCooldown(quest.Element, _cooldowns[quest.Index]);    
+            }
         }
     }
 }

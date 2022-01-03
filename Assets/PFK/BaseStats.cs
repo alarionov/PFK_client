@@ -3,6 +3,17 @@ namespace PFK
     [System.Serializable]
     public class BaseStats
     {
+        public enum AttributeType
+        {
+            Strength,
+            Dexterity,
+            Constitution,
+            Luck,
+            Armor,
+            Attack,
+            Health     
+        }
+
         public int Strength;
         public int Dexterity;
         public int Constitution;
