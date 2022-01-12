@@ -74,39 +74,55 @@ class WB
             console.log("Error: ", e.message);
         }
     };
-
-    getState = async (playerAddress) =>
+    
+    auth = async (playerAddress, token) => 
     {
-        console.log("WB.getState");
+        console.log("WB.auth");
         
-        const abi = AbiRegistry.Core;
-
-        const contract = new this.web3.eth.Contract(abi, this.CoreContract);
-
-        const state = await contract.methods.getState(playerAddress).call();
-
-        const tokenId = parseInt(state.tokenId);
-
-        if (tokenId > 0)
+        const purrOwnership =
+            new this.web3.eth.Contract(
+                ContractRegistry.PurrOwnership.abi,
+                ContractRegistry.PurrOwnership.address);
+        
+        const owner = await purrOwnership.methods.ownerOf(token).call();
+        
+        if (owner.toLowerCase() !== playerAddress.toLowerCase())
         {
-            await this.getBuffs(playerAddress);
-            await this.getCharacter(tokenId);
+            this.unityInstance.SendMessage("[WalletManager]", "ShowLoadingScreen");
+            
+            const response = await fetch(`https://authority.dev.pfk.kotobaza.co/ownership/${ token }`);
+            const verification = await response.json();
+            
+            if (verification.owner.toLowerCase() !== playerAddress.toLowerCase() && false) 
+            {
+                console.log("not your token");
+                return;
+            }
+           
+            const tx = 
+                await purrOwnership.methods.verify(
+                    verification.owner, 
+                    verification.token, 
+                    verification.timestamp, 
+                    verification.signature).send({from: playerAddress});
+            
+            this.unityInstance.SendMessage("[WalletManager]", "HideLoadingScreen");
+            
+            console.log(tx);
+            
+            if (!tx.status) 
+            {
+                console.log("Transaction failed");
+                console.log(tx);
+                return;
+            }
         }
-
-        this.stateLoaded(state);
+        
+        await this.getCharacter(ContractRegistry.PurrOwnership.address, token);
+        await this.getAct1SidequestCooldowns(ContractRegistry.PurrOwnership.address, token);
+        await this.getAct1Progress(ContractRegistry.PurrOwnership.address, token);
     };
-
-    stateLoaded = (objState) =>
-    {
-        const state = {
-            tokenId: objState.tokenId,
-            level: objState.level,
-            difficulty: objState.difficulty
-        };
-
-        this.unityInstance.SendMessage("[WalletManager]", "SetState", JSON.stringify(state));
-    };
-
+    
     conductFight = async (playerAddress, mapContract, level, characterContract, tokenId)  =>
     {
         this.unityInstance.SendMessage("[WalletManager]", "ShowLoadingScreen");
@@ -231,6 +247,8 @@ class WB
             Level: response.level
         };
 
+        console.log(character);
+        
         this.unityInstance.SendMessage("[WalletManager]", "CharacterLoaded", JSON.stringify(character));
     };
 

@@ -25,12 +25,16 @@ namespace PFK.PlayerCharacter
         private void Awake()
         {
             _face.gameObject.SetActive(false);
-            
-            int tokenId = 3029;
-            _head.sprite = Resources.Load<Sprite>($"PurrHeads/{tokenId}");
+
+            Head(PlayerState.GetInstance().Character.TokenId);
 
             Wear(ItemRegistry.GetWeaponSet(WeaponType.WoodenStick));
             Wear(ItemRegistry.GetArmorSet(ArmorType.PrisonRobe));
+        }
+
+        public void Head(int token)
+        {
+            _head.sprite = Resources.Load<Sprite>($"PurrHeads/{token}");
         }
 
         public void Wear(WeaponSet weaponSet)

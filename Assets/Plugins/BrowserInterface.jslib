@@ -30,6 +30,10 @@ var WBFunctions = {
             level, 
             UTF8ToString(characterContract), tokenId); 
     },
+    
+    jsAddPurr: function (playerAddress, token) {
+        window.WB.auth(UTF8ToString(playerAddress), token);
+    }
 };
 
 mergeInto(LibraryManager.library, WBFunctions);

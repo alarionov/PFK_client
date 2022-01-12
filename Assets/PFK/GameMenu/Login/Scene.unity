@@ -315,6 +315,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad92158947299418fab60684cbf567d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &731779715
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3887488862736669697, guid: 4f8220e5b250c48f38beea11a3e2e778,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887488862736669697, guid: 4f8220e5b250c48f38beea11a3e2e778,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.088554
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887488862736669697, guid: 4f8220e5b250c48f38beea11a3e2e778,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.041066017
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887488862736669697, guid: 4f8220e5b250c48f38beea11a3e2e778,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 120.31674
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887488862736669697, guid: 4f8220e5b250c48f38beea11a3e2e778,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887488862736669697, guid: 4f8220e5b250c48f38beea11a3e2e778,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887488862736669697, guid: 4f8220e5b250c48f38beea11a3e2e778,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887488862736669697, guid: 4f8220e5b250c48f38beea11a3e2e778,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887488862736669697, guid: 4f8220e5b250c48f38beea11a3e2e778,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887488862736669697, guid: 4f8220e5b250c48f38beea11a3e2e778,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887488862736669697, guid: 4f8220e5b250c48f38beea11a3e2e778,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887488862736669703, guid: 4f8220e5b250c48f38beea11a3e2e778,
+        type: 3}
+      propertyPath: m_Name
+      value: CursorManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4f8220e5b250c48f38beea11a3e2e778, type: 3}
 --- !u!1 &775139192
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,7 +449,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1164426119
 PrefabInstance:
@@ -412,7 +481,7 @@ PrefabInstance:
     - target: {fileID: 4519691852553374741, guid: 5a4634ead96824eb1884b703b46b90ad,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4519691852553374741, guid: 5a4634ead96824eb1884b703b46b90ad,
         type: 3}
@@ -734,6 +803,7 @@ GameObject:
   - component: {fileID: 1787889422}
   - component: {fileID: 1787889421}
   - component: {fileID: 1787889420}
+  - component: {fileID: 1787889423}
   m_Layer: 5
   m_Name: ConnectWalletButton
   m_TagString: Untagged
@@ -856,3 +926,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1787889418}
   m_CullTransparentMesh: 1
+--- !u!114 &1787889423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787889418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02ce558c1a449453b9bf73d5f735f98a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cursor: 1
+  _outline: {fileID: 0}
